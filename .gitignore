@@ -1,0 +1,31 @@
+# um comentario - isto é ignorado
+# ignora o tipo arquivo de layout do code::blocks
+*.layout
+# ignora o tipo arquivo de layout do code::blocks
+*.depend
+# Todo arquivo terminado com ~ que marca arquivoi temporario
+*~
+# ignora arquivos terminados com .o (arquivo objeto) ou .a (compactado) 
+*.[oa]
+# ignora arquivos .txt
+	#*.txt
+# ignora arquivos .odt
+*.odt
+# ignora arquivos .lp
+*.lp
+# ignora arquivos .ps
+#*.ps
+# ignora arquivos .mk
+#*.mk
+# ignora arquivos .cproject (do eclipse)
+#*.cproject
+# ignora arquivos .project (do eclipse)
+#*.project
+# ignora arquivos .xml (do eclipse, dentro da pasta .settings)
+#*.xml
+# ignora arquivos .d (do eclipse, dentro da pasta debug/src/)
+#*.d
+# ignora arquivos Pasta
+.metadata/
+#ignora arquivos Pasta
+teste/
