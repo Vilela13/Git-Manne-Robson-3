@@ -1,0 +1,7 @@
+A pasta InstS são as instancias de Salomon modificadas para a leitura do meu modelo
+
+A pasta CmdR contem os comandos R que podem ser executados pelo R e permitir uma visualização dos dados
+
+# Para rodar o codigo no terminal, você temq ue estar na pasta e rodar o codigo 
+$ R CMD BATCH CmdR-C101.txt
+
