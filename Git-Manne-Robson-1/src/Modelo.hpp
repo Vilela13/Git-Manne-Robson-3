@@ -1041,16 +1041,32 @@ void No::Cplex(){
 
 // Restrição  8:
 
-	for (int v = 0; v < NV; v++) {
-		for (int e1 = 0; e1 < NE; e1++) {
-			for (int i = 0; i < (TCDE[e1] - 1); i++) {
-				if ( Escreve == 1){
-					cout << "  Tvei[" <<v<< "][" <<e1<< "][" <<i+1<< "] >= Tvei[" <<v<< "][" <<e1<< "][" <<i<< "] + Omega["<<e1<<"]" << endl;
+/*
+	for (int v1 = 0; v1 < NV; v1++) {
+		for (int v2 = 0; v2 < NV; v2++) {
+			for (int e1 = 0; e1 < NE; e1++) {
+				for (int i = 0; i < (TCDE[e1] - 1); i++) {
+					if ( Escreve == 1){
+						cout << "  Tvei[" <<v1<< "][" <<e1<< "][" <<i+1<< "] >= Tvei[" <<v2<< "][" <<e1<< "][" <<i<< "] + Omega["<<e1<<"]" << endl;
+					}
+						model.add(  Tvei[v1][e1][i+1] >= Tvei[v2][e1][i] + Omega[e1]);
 				}
-					model.add(  Tvei[v][e1][i+1] >= Tvei[v][e1][i] + Omega[e1]);
 			}
 		}
 	}
+*/
+	for (int v1 = 0; v1 < NV; v1++) {
+			for (int v2 = 0; v2 < NV; v2++) {
+				for (int e1 = 0; e1 < NE; e1++) {
+					for (int i = 0; i < (TCDE[e1] - 1); i++) {
+						if ( Escreve == 1){
+							cout <<" BigM * ( 1 - Alfa[" <<v1<< "][" <<e1<< "][" <<i<< "]) +  Tvei[" <<v1<< "][" <<e1<< "][" <<i<< "] >= - BigM * ( 1 - Alfa[" <<v2<< "][" <<e1<< "][" <<i<< "]) Tvei[" <<v2<< "][" <<e1<< "][" <<i<< "] + Omega["<<e1<<"]" << endl;
+						}
+							model.add( BigM * ( 1 - Alfa[v1][e1][i+1]) +  Tvei[v1][e1][i+1] >= - BigM * ( 1 - Alfa[v2][e1][i]) + Tvei[v2][e1][i] + Omega[e1]);
+					}
+				}
+			}
+		}
 
 // Restrição  9:
 
