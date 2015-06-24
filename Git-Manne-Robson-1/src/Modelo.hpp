@@ -1054,7 +1054,10 @@ void No::Cplex(){
 			}
 		}
 	}
+
 */
+// Com o Big M
+
 	for (int v1 = 0; v1 < NV; v1++) {
 			for (int v2 = 0; v2 < NV; v2++) {
 				for (int e1 = 0; e1 < NE; e1++) {
@@ -1272,7 +1275,9 @@ void No::Cplex(){
 				for (int e = 0; e < NE; e++) {
 					for( int i = 0; i < TCDE[e]; i++){
 						if( cplex.getValue(Alfa[vAux][e][i]) == 1){
-							cout << '\t' << " Entrega[Construcao->" << e+1 << "][Job->" << i+1<< "] as " << cplex.getValue(Tvei[vAux][e][i]) << endl;
+							cout << '\t' << " Entrega[Construcao->" << e+1 << "][Job->" << i+1<< "] as ";
+							printf("%.2f", cplex.getValue(Tvei[vAux][e][i]) );
+							cout << endl;
 						}
 					}
 				}
@@ -1288,21 +1293,27 @@ void No::Cplex(){
 		cout << endl << endl;
 		cout << "           Tempo de entrega em cada cliente         " << endl;
 		for (int e = 0; e < NE; e++) {
-			cout << " Cliente " << e +1 << "\t[ " << TminE[e] << "\t<=\t";
+			cout << " Cliente " << e +1 << "\t[ ";
+			printf("%.2f", TminE[e]);
+			cout << "\t<=\t";
 			for( int i = 0; i < TCDE[e]; i++){
 				vAux = 0;
 				for (int p = 0; p < NP; p++) {
 					for (int v = 0; v < TCVP[p]; v++) {
 						if( AlfaImprimir[vAux][e][i] == 1 ){
 							//cout << "   Tvei[" << vAux << "][" << e << "][" << i <<"] " << TveiImprime[vAux][e][i];
-							cout << "\t" << TveiImprime[vAux][e][i] << "[v" << vAux + 1<< "]";
+							cout << "\t";
+							printf("%.2f", TveiImprime[vAux][e][i]);
+							cout << "[v" << vAux + 1<< "]";
 						}
 						vAux++;
 					}
 
 				}
 			}
-			cout << "\t<=\t" << TmaxE[e] << "]" << endl;
+			cout << "\t<=\t";
+			printf("%.2f", TmaxE[e]);
+			cout << "]" << endl;
 		}
 
 		/* Veiculos usados */
