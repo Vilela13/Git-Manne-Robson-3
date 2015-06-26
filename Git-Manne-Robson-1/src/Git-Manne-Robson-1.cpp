@@ -115,7 +115,7 @@ int main(int argc, char **argv) {
 		cout << " Modelo <= " << a << endl;
 
 		Instancia->LeDados(a);
-		Instancia->Cplex();
+		Instancia->Cplex(a);
 	}
 
 

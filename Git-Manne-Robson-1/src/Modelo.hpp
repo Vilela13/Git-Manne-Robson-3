@@ -95,7 +95,14 @@ public:
 
 /* Funções Cplex */
 
-    void Cplex();
+    void Cplex(char *a);
+
+/* Escrever em diretorio a saída */
+
+    char *c1;
+    char *c2;
+    string Nome1;
+    string Nome2;
 
 
     ~No();       // Destruidora
@@ -763,7 +770,7 @@ void No::LeDados(char *a){
 
 }
 
-void No::Cplex(){
+void No::Cplex(char *a){
 
 	char varName[24];
 
@@ -772,6 +779,7 @@ void No::Cplex(){
 	int EscreveVariaveis;
 	int OutPut1;
 	int OutPut2;
+	int SaidaPastaSeparada;
 
 	int UsouCaminhao;
 	int AtendeCliente;
@@ -780,6 +788,7 @@ void No::Cplex(){
 	EscreveVariaveis = 0;
 	OutPut1 = 1;
 	OutPut2 = 1;
+	SaidaPastaSeparada = 1;
 
 // Começa a escrever modelo do Cplex
 
@@ -1112,6 +1121,43 @@ void No::Cplex(){
 	cplex.exportModel("model.lp");
 
 
+	if(!opendir ("Out")){
+		cout <<  "\n\n Nao tem diretorio \"Out\" !!        FUDEU MUITO!! \n" << endl;
+
+		if(system("mkdir Out;") == 0){
+			cout << " Criou pasta Out" << endl;
+		}else{
+			cout << " Problema ao criar pasta Out" << endl;
+		}
+
+		/* Outra maneira de criar arquivos
+
+		SituacaoDiretorio = mkdir("./myfolder", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+		*/
+
+		if(!opendir ("Out")){
+			cout << "\n Nao tem diretorio  \"InstS\" !!        FUDEU MUITO!! \n" << endl;
+		}else{
+			cout << " Tem diretorio \"Out\" !!  " << endl;
+		}
+	}else{
+		cout << " Tem diretorio \"Out\" !!  " << endl;
+	}
+
+	Nome1 = "./Out/";
+	c1 = new char[Nome1.size()+1];
+	c1[Nome1.size()]=0;
+	memcpy(c1,Nome1.c_str(),Nome1.size());
+	strcat(c1,a);
+
+	cout << endl << endl << " arquivo a gravar a saida " << c1 << endl << endl;
+
+	ofstream logfile(c1);
+
+	if(SaidaPastaSeparada == 1){
+		cplex.setOut(logfile);
+	}
+
 
 // Resolve o modelo.
 	if (!cplex.solve()) {
@@ -1119,11 +1165,12 @@ void No::Cplex(){
 		throw(-1);
 	}
 
+
 	cout << "Solution status = " << cplex.getStatus() << endl;
 	cout << "Solution cost = " << cplex.getObjValue() << endl;
 
 
-/* inicializa variaveis para imprimir */
+// inicializa variaveis para imprimir
 
 	AlfaImprimir.resize(NV);
 	for (int v = 0; v < NV; v++) {
@@ -1160,7 +1207,7 @@ void No::Cplex(){
 
 	TvImprime.resize(NV);
 
-/* Coloca valor das variaveis do modelo na estrutura do programa */
+// Coloca valor das variaveis do modelo na estrutura do programa
 
 	for (int v = 0; v< NV; v++) {
 		for (int e = 0; e < NE; e++) {
@@ -1208,7 +1255,7 @@ void No::Cplex(){
 		TvImprime[v] = cplex.getValue(Tv[v]);
 	}
 
-/* Imprimi Variaveis */
+// Imprimi Variaveis
 
 	if( EscreveVariaveis == 1){
 
@@ -1288,7 +1335,7 @@ void No::Cplex(){
 
 	if( OutPut2 == 1){
 
-	/* Tempo de cada entrega em cada cliente */
+// Tempo de cada entrega em cada cliente
 
 		cout << endl << endl;
 		cout << "           Tempo de entrega em cada cliente         " << endl;
@@ -1316,7 +1363,7 @@ void No::Cplex(){
 			cout << "]" << endl;
 		}
 
-		/* Veiculos usados */
+// Veiculos usados
 
 		cout << endl << endl;
 		cout << "           Veiculos usados         " << endl;
