@@ -1152,10 +1152,10 @@ void No::Cplex(char *a){
 
 	cout << endl << endl << " arquivo a gravar a saida " << c1 << endl << endl;
 
-	ofstream logfile(c1);
+	ofstream logfile1(c1);
 
 	if(SaidaPastaSeparada == 1){
-		cplex.setOut(logfile);
+		cplex.setOut(logfile1);
 	}
 
 
@@ -1165,9 +1165,47 @@ void No::Cplex(char *a){
 		throw(-1);
 	}
 
+	if(!opendir ("Sol")){
+		cout <<  "\n\n Nao tem diretorio \"Sol\" !!        FUDEU MUITO!! \n" << endl;
+
+		if(system("mkdir Sol;") == 0){
+			cout << " Criou pasta Sol" << endl;
+		}else{
+			cout << " Problema ao criar pasta Sol" << endl;
+		}
+
+		/* Outra maneira de criar arquivos
+
+		SituacaoDiretorio = mkdir("./myfolder", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+		*/
+
+		if(!opendir ("Sol")){
+			cout << "\n Nao tem diretorio  \"Sol\" !!        FUDEU MUITO!! \n" << endl;
+		}else{
+			cout << " Tem diretorio \"Sol\" !!  " << endl;
+		}
+	}else{
+		cout << " Tem diretorio \"Sol\" !!  " << endl;
+	}
+
+	Nome2 = "./Sol/";
+	c2 = new char[Nome2.size()+1];
+	c2[Nome2.size()]=0;
+	memcpy(c2,Nome2.c_str(),Nome2.size());
+	strcat(c2,a);
+
+	cout << endl << endl << " arquivo a gravar a ssolucao " << c2 << endl << endl;
+
+	ofstream logfile2(c2);
+
+
+
+
 
 	cout << "Solution status = " << cplex.getStatus() << endl;
+	logfile2 <<  "Solution status = " << cplex.getStatus() << endl;
 	cout << "Solution cost = " << cplex.getObjValue() << endl;
+	logfile2 << "Solution cost = " << cplex.getObjValue() << endl;
 
 
 // inicializa variaveis para imprimir
@@ -1264,8 +1302,10 @@ void No::Cplex(char *a){
 			for (int e = 0; e < NE; e++) {
 				for( int i = 0; i < TCDE[e]; i++){
 					cout << Alfa[v][e][i].getName() << " [" << cplex.getValue(Alfa[v][e][i]) << "]  ";
+					logfile2 << Alfa[v][e][i].getName() << " [" << cplex.getValue(Alfa[v][e][i]) << "]  ";
 				}
 			cout << endl;
+			logfile2 << endl;
 			}
 		}
 
@@ -1280,11 +1320,13 @@ void No::Cplex(char *a){
 							}else{
 								if( e1 == e2){
 									cout << Beta[v][e1][i][e2][j].getName() << " [" << cplex.getValue(Beta[v][e1][i][e2][j]) << "]  ";
+									logfile2 << Beta[v][e1][i][e2][j].getName() << " [" << cplex.getValue(Beta[v][e1][i][e2][j]) << "]  ";
 								}
 							}
 						}
 					}
 					cout << endl;
+					logfile2 << endl;
 				}
 			}
 		}
@@ -1294,8 +1336,10 @@ void No::Cplex(char *a){
 			for (int e = 0; e < NE; e++) {
 				for( int i = 0; i < TCDE[e]; i++){
 					cout << Tvei[v][e][i].getName() << " [" << cplex.getValue(Tvei[v][e][i]) << "]  ";
+					logfile2 << Tvei[v][e][i].getName() << " [" << cplex.getValue(Tvei[v][e][i]) << "]  ";
 				}
 				cout << endl;
+				logfile2 << endl;
 			}
 		}
 
@@ -1303,9 +1347,11 @@ void No::Cplex(char *a){
 		for (int p = 0; p < NP; p++) {
 			for (int v = 0; v < TCVP[p]; v++) {
 				cout << Tv[vAux].getName() << " [" << cplex.getValue(Tv[vAux]) << "]  ";
+				logfile2 << Tv[vAux].getName() << " [" << cplex.getValue(Tv[vAux]) << "]  ";
 				vAux = vAux + 1;
 			}
 			cout << endl;
+			logfile2 << endl;
 		}
 
 	}
@@ -1318,13 +1364,18 @@ void No::Cplex(char *a){
 		for (int p = 0; p < NP; p++) {
 			for (int v = 0; v < TCVP[p]; v++) {
 				cout << " Veiculo " << vAux + 1 << " Sai as ";
+				logfile2 << " Veiculo " << vAux + 1 << " Sai as ";
 				cout <<  cplex.getValue(Tv[vAux]) << endl;
+				logfile2 <<  cplex.getValue(Tv[vAux]) << endl;
 				for (int e = 0; e < NE; e++) {
 					for( int i = 0; i < TCDE[e]; i++){
 						if( cplex.getValue(Alfa[vAux][e][i]) == 1){
 							cout << '\t' << " Entrega[Construcao->" << e+1 << "][Job->" << i+1<< "] as ";
+							logfile2 << '\t' << " Entrega[Construcao->" << e+1 << "][Job->" << i+1<< "] as ";
 							printf("%.2f", cplex.getValue(Tvei[vAux][e][i]) );
+							logfile2 << cplex.getValue(Tvei[vAux][e][i]);
 							cout << endl;
+							logfile2 << endl;
 						}
 					}
 				}
@@ -1338,11 +1389,16 @@ void No::Cplex(char *a){
 // Tempo de cada entrega em cada cliente
 
 		cout << endl << endl;
+		logfile2 << endl << endl;
 		cout << "           Tempo de entrega em cada cliente         " << endl;
+		logfile2 <<  "           Tempo de entrega em cada cliente         " << endl;
 		for (int e = 0; e < NE; e++) {
 			cout << " Cliente " << e +1 << "\t[ ";
+			logfile2 << " Cliente " << e +1 << "\t[ ";
 			printf("%.2f", TminE[e]);
+			logfile2 << TminE[e];
 			cout << "\t<=\t";
+			logfile2 << "\t<=\t";
 			for( int i = 0; i < TCDE[e]; i++){
 				vAux = 0;
 				for (int p = 0; p < NP; p++) {
@@ -1350,8 +1406,11 @@ void No::Cplex(char *a){
 						if( AlfaImprimir[vAux][e][i] == 1 ){
 							//cout << "   Tvei[" << vAux << "][" << e << "][" << i <<"] " << TveiImprime[vAux][e][i];
 							cout << "\t";
+							logfile2 << "\t";
 							printf("%.2f", TveiImprime[vAux][e][i]);
+							logfile2 << TveiImprime[vAux][e][i];
 							cout << "[v" << vAux + 1<< "]";
+							logfile2 << "[v" << vAux + 1<< "]";
 						}
 						vAux++;
 					}
@@ -1359,17 +1418,23 @@ void No::Cplex(char *a){
 				}
 			}
 			cout << "\t<=\t";
+			logfile2 << "\t<=\t";
 			printf("%.2f", TmaxE[e]);
+			logfile2 << TmaxE[e];
 			cout << "]" << endl;
+			logfile2 << "]" << endl;
 		}
 
 // Veiculos usados
 
 		cout << endl << endl;
+		logfile2 << endl << endl;
 		cout << "           Veiculos usados         " << endl;
+		logfile2 << "           Veiculos usados         " << endl;
 		vAux = 0;
 		for (int p = 0; p < NP; p++) {
 			cout << "Planta " << p + 1 << endl;
+			logfile2 << "Planta " << p + 1 << endl;
 			for (int v = 0; v < TCVP[p]; v++) {
 				UsouCaminhao = 0;
 				for (int e = 0; e < NE; e++) {
@@ -1381,6 +1446,7 @@ void No::Cplex(char *a){
 				}
 				if( UsouCaminhao == 1){
 					cout << "  Veiculo " << vAux + 1 << " \t[clientes ->\t";
+					logfile2  << "  Veiculo " << vAux + 1 << " \t[clientes ->\t";
 					for (int e = 0; e < NE; e++) {
 						AtendeCliente = 0;
 						for( int i = 0; i < TCDE[e]; i++){
@@ -1390,18 +1456,24 @@ void No::Cplex(char *a){
 						}
 						if( AtendeCliente == 1){
 							cout << e + 1 << "\t";
+							logfile2 << e + 1 << "\t";
 						}
 					}
 					cout << "]" << endl;
+					logfile2  << "]" << endl;
 				}
 				vAux++;
 			}
 			cout << endl;
+			logfile2 << endl;
 		}
 
 
 
 	}
+
+	logfile1.close();
+	logfile2.close();
 
 }
 

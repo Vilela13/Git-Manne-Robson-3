@@ -1,0 +1,67 @@
+Solution status = Optimal
+Solution cost = 86.6547
+ Veiculo 1 Sai as 7
+	 Entrega[Construcao->1][Job->3] as 8.33333
+ Veiculo 2 Sai as 7
+	 Entrega[Construcao->1][Job->2] as 8.16667
+ Veiculo 3 Sai as 7
+	 Entrega[Construcao->1][Job->1] as 8
+	 Entrega[Construcao->3][Job->4] as 8.5
+ Veiculo 4 Sai as 7
+	 Entrega[Construcao->3][Job->2] as 8.16667
+ Veiculo 5 Sai as 7
+	 Entrega[Construcao->2][Job->1] as 8.5
+ Veiculo 6 Sai as 7
+	 Entrega[Construcao->2][Job->2] as 8.66667
+	 Entrega[Construcao->3][Job->1] as 8
+ Veiculo 7 Sai as 7
+	 Entrega[Construcao->3][Job->3] as 8.33333
+ Veiculo 8 Sai as 7
+	 Entrega[Construcao->5][Job->1] as 9
+	 Entrega[Construcao->6][Job->1] as 10
+ Veiculo 9 Sai as 7
+	 Entrega[Construcao->2][Job->5] as 9.16667
+ Veiculo 10 Sai as 7
+	 Entrega[Construcao->4][Job->1] as 10.1026
+	 Entrega[Construcao->5][Job->3] as 9.33333
+ Veiculo 11 Sai as 7
+	 Entrega[Construcao->2][Job->4] as 9
+ Veiculo 12 Sai as 7
+	 Entrega[Construcao->4][Job->2] as 10.2693
+	 Entrega[Construcao->5][Job->4] as 9.5
+ Veiculo 13 Sai as 7
+	 Entrega[Construcao->2][Job->3] as 8.83333
+ Veiculo 14 Sai as 7
+	 Entrega[Construcao->5][Job->2] as 9.16667
+	 Entrega[Construcao->7][Job->1] as 10
+
+
+           Tempo de entrega em cada cliente         
+ Cliente 1	[ 8	<=		8[v3]	8.16667[v2]	8.33333[v1]	<=	8.5]
+ Cliente 2	[ 8.5	<=		8.5[v5]	8.66667[v6]	8.83333[v13]	9[v11]	9.16667[v9]	<=	10]
+ Cliente 3	[ 8	<=		8[v6]	8.16667[v4]	8.33333[v7]	8.5[v3]	<=	8.5]
+ Cliente 4	[ 10	<=		10.1026[v10]	10.2693[v12]	<=	11]
+ Cliente 5	[ 9	<=		9[v8]	9.16667[v14]	9.33333[v10]	9.5[v12]	<=	11]
+ Cliente 6	[ 10	<=		10[v8]	<=	11]
+ Cliente 7	[ 10	<=		10[v14]	<=	10.5]
+
+
+           Veiculos usados         
+Planta 1
+  Veiculo 1 	[clientes ->	1	]
+  Veiculo 2 	[clientes ->	1	]
+  Veiculo 3 	[clientes ->	1	3	]
+  Veiculo 4 	[clientes ->	3	]
+  Veiculo 5 	[clientes ->	2	]
+  Veiculo 6 	[clientes ->	2	3	]
+  Veiculo 7 	[clientes ->	3	]
+
+Planta 2
+  Veiculo 8 	[clientes ->	5	6	]
+  Veiculo 9 	[clientes ->	2	]
+  Veiculo 10 	[clientes ->	4	5	]
+  Veiculo 11 	[clientes ->	2	]
+  Veiculo 12 	[clientes ->	4	5	]
+  Veiculo 13 	[clientes ->	2	]
+  Veiculo 14 	[clientes ->	5	7	]
+
