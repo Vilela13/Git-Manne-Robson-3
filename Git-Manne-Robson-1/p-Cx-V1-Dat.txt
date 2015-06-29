@@ -1,9 +1,0 @@
-./InstS/p-Cx-V1.txt
- Gerador dos numeros aleatorios das demandas ( 49 ) 
-Dados das plantas 
-   NoPlanta = 4 Horario [ 7 - 18 ]
-   NoPlanta = 15 Horario [ 7 - 18 ]
-Dados dos Clientes 
-  NoCliente = 1 	Demanda em carretas ( 3 ) Horario [ 8 - 8.5 ]
-  NoCliente = 2 	Demanda em carretas ( 5 ) Horario [ 8.5 - 10 ]
-  NoCliente = 3 	Demanda em carretas ( 4 ) Horario [ 8 - 8.5 ]

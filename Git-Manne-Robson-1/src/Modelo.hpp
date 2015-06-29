@@ -442,7 +442,9 @@ int No::LeDados(char *a){
 
 	int Aux1;
 	int comentarios;
+	char *b;
 	string Instancia;
+	string CaminhoArquivo1;
 
 	comentarios = 0;
 
@@ -450,8 +452,15 @@ int No::LeDados(char *a){
 
 // Abre arquivo das instâncias
 
-	arq.open(a);
-		if (arq.is_open()){
+	CaminhoArquivo1 = "./InstS/";
+
+	b = new char[CaminhoArquivo1.size()+1];
+	b[CaminhoArquivo1.size()]=0;
+	memcpy(b,CaminhoArquivo1.c_str(),CaminhoArquivo1.size());
+	strcat(b,a);
+
+	arq.open(b);
+	if (arq.is_open()){
 
 	// le nome instância
 		arq >> Instancia;
