@@ -44,7 +44,7 @@ all: Git-Manne-Robson-1
 Git-Manne-Robson-1: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross G++ Linker'
-	g++ -L/opt/ibm/ILOG/CPLEX_Studio126/concert/lib/x86-64_linux/static_pic -L/opt/ibm/ILOG/CPLEX_Studio126/cplex/lib/x86-64_linux/static_pic -o "Git-Manne-Robson-1" $(OBJS) $(USER_OBJS) $(LIBS)
+	g++ -L/home/lapo/cplex/cplex126/concert/lib/x86-64_linux/static_pic -L/home/lapo/cplex/cplex126/cplex/lib/x86-64_linux/static_pic -o "Git-Manne-Robson-1" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 

@@ -7,7 +7,3 @@ Dados dos Clientes
   NoCliente = 1 	Demanda em carretas ( 3 ) Horario [ 8 - 8.5 ]
   NoCliente = 2 	Demanda em carretas ( 5 ) Horario [ 8.5 - 10 ]
   NoCliente = 3 	Demanda em carretas ( 4 ) Horario [ 8 - 8.5 ]
-  NoCliente = 5 	Demanda em carretas ( 2 ) Horario [ 10 - 11 ]
-  NoCliente = 6 	Demanda em carretas ( 4 ) Horario [ 9 - 11 ]
-  NoCliente = 7 	Demanda em carretas ( 1 ) Horario [ 10 - 11 ]
-  NoCliente = 8 	Demanda em carretas ( 1 ) Horario [ 10 - 10.5 ]
