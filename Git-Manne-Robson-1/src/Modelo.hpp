@@ -104,6 +104,10 @@ public:
     string Nome1;
     string Nome2;
 
+ // Pegar o tempo
+
+    double Tempo1;
+    double Tempo2;
 
     ~No();       // Destruidora
 };
@@ -1172,13 +1176,17 @@ void No::Cplex(char *a){
 	if(SaidaPastaSeparada == 1){
 		cplex.setOut(logfile1);
 	}
+	cplex.setParam(IloCplex::TiLim, 120);
 
+	Tempo1 = cplex.getCplexTime();
 
 // Resolve o modelo.
 	if (!cplex.solve()) {
 		cerr << "Failed to optimize LP." << endl;
 		throw(-1);
 	}
+
+	Tempo2 = cplex.getCplexTime();
 
 	if(!opendir ("Sol")){
 		cout <<  "\n\n Nao tem diretorio \"Sol\" !!        FUDEU MUITO!! \n" << endl;
@@ -1219,8 +1227,14 @@ void No::Cplex(char *a){
 
 	cout << "Solution status = " << cplex.getStatus() << endl;
 	logfile2 <<  "Solution status = " << cplex.getStatus() << endl;
-	cout << "Solution cost = " << cplex.getObjValue() << endl;
-	logfile2 << "Solution cost = " << cplex.getObjValue() << endl;
+	cout << "Solution primal cost = " << cplex.getObjValue() << endl;
+	logfile2 << "Solution primal cost = " << cplex.getObjValue() << endl;
+	cout << "Solution dual cost = " << cplex.getBestObjValue() << endl ;
+	logfile2 << "Solution dual cost = " << cplex.getBestObjValue() << endl ;
+	cout << "Gap = " << 100 * ( cplex.getObjValue() - cplex.getBestObjValue() ) / cplex.getObjValue() << "%" << endl ;
+	logfile2 << "Gap = " << 100 * ( cplex.getObjValue() - cplex.getBestObjValue() ) / cplex.getObjValue() << "%" << endl ;
+	cout << "Tempo = " << Tempo2 - Tempo1 << " segundos. " << endl<< endl;
+	logfile2 << "Tempo = " << Tempo2 - Tempo1 << " segundos. " << endl << endl;
 
 
 // inicializa variaveis para imprimir

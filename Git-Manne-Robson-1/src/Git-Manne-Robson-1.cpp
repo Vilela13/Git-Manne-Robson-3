@@ -56,7 +56,11 @@ int main(int argc, char **argv) {
 
 		//InstanciaSaloman->EscreverDadosLidosInstanciaSaloman();
 
-		cout << " entrei 1 - carrega dados" << endl;
+		cout << " entrei 0 - carrega dados" << endl;
+
+		InstanciaSaloman->CriarInstanciaSaloman(a);
+
+		cout << " entrei 1 - escreve Instancia Salomon" << endl;
 
 		InstanciaSaloman->EscreverComandosR(a,'4');
 		// 1 => .ps	  2 =>.png   3 =>.jpeg    4 =>.pdf
@@ -67,9 +71,6 @@ int main(int argc, char **argv) {
 
 		cout << " entrei 3 - escreve comandos excel" << endl;
 
-		InstanciaSaloman->CriarInstanciaSaloman(a);
-
-		cout << " entrei 4 - escreve comandos excel" << endl;
 	}
 
 
