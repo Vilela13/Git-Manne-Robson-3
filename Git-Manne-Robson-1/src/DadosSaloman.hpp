@@ -69,24 +69,39 @@ DadosSaloman::DadosSaloman(){
 
 void DadosSaloman::CarregarNumeroNosCoordenadas( char* a){
 
+	int EscreveDadosLidos = 0;
+
 	Instancia.open(a);
 
 	Instancia >> NomeInstancia;
 
-	cout << " Nome Instancia = " << NomeInstancia << endl;
+	if( EscreveDadosLidos == 1){
+		cout << " Nome Instancia no carrega dados = " << NomeInstancia << endl;
+	}
 
 	for( int i = 0; i<3; i++){
         Instancia >>Auxiliar;
-        cout << Auxiliar << "  ";
+        if( EscreveDadosLidos == 1){
+        	cout << Auxiliar << "  ";
+        }
     }
-	cout << endl;
+	if( EscreveDadosLidos == 1){
+		cout << endl;
+	}
 
 	Instancia >> NumeroVeiculos;
-	cout << NumeroVeiculos ;
+	if( EscreveDadosLidos == 1){
+		cout << NumeroVeiculos ;
+	}
 	NumeroNosDadosSaloman = NumeroVeiculos;
-	cout << "(" << NumeroNosDadosSaloman << ")   ";
+	if( EscreveDadosLidos == 1){
+		cout << "(" << NumeroNosDadosSaloman << ")   ";
+	}
+
 	Instancia >> Capacidade;
-	cout << Capacidade << endl;
+	if( EscreveDadosLidos == 1){
+		cout << Capacidade << endl;
+	}
 
 // Inicializa estrutura ds dados
 
@@ -110,9 +125,13 @@ void DadosSaloman::CarregarNumeroNosCoordenadas( char* a){
 
     for( int i = 0; i<12; i++){
         Instancia >>Auxiliar;
-        cout << Auxiliar << "  ";
+        if( EscreveDadosLidos == 1){
+        	cout << Auxiliar << "  ";
+        }
     }
-    cout << endl;
+    if( EscreveDadosLidos == 1){
+    	cout << endl;
+    }
 
 
 
@@ -194,7 +213,7 @@ void DadosSaloman::EscreverComandosR(char* a, char TipoArquivoSaida){
 		memcpy(b,TipoComando.c_str(),TipoComando.size());
 		strcat(b,a);
 
-		cout << b << endl << endl;
+		cout << endl <<  " Arquivo do comando R = " <<   b << endl << endl;
 
 		ComandosR.open(b);
 
@@ -389,36 +408,12 @@ void DadosSaloman::EscreverComandosExcel(char* a){
 
 void DadosSaloman::CriarInstanciaSaloman(char* a){
 
-// Cria diretorio caso não exista
-
-	if(!opendir ("InstS")){
-		cout <<  "\n\n Nao tem diretorio \"InstS\" !!        FUDEU MUITO!! \n" << endl;
-
-		if(system("mkdir InstS;") == 0){
-			cout << " Criou pasta InstS" << endl;
-		}else{
-			cout << " Problema ao criar pasta InstS" << endl;
-		}
-
-		/* Outra maneira de criar arquivos
-
-		SituacaoDiretorio = mkdir("./myfolder", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
-		*/
-
-		if(!opendir ("InstS")){
-			cout << "\n Nao tem diretorio  \"InstS\" !!        FUDEU MUITO!! \n" << endl;
-		}else{
-			cout << " Tem diretorio \"InstS\" !!  " << endl;
-		}
-	}else{
-		cout << " Tem diretorio \"InstS\" !!  " << endl;
-	}
-
 // Declara variaveis
 
 	char *b;
 	char *aux1;
-	string CaminhoArquivo;
+	string CaminhoArquivo1;
+	string CaminhoArquivo2;
 	string Nome;
 	string NomeAux;
 	string Versao;
@@ -458,11 +453,33 @@ void DadosSaloman::CriarInstanciaSaloman(char* a){
 
 	//binomial_distribution<int> distribution(5,0.5); 		// gera numeros segundo a distribuição binomial
 
+// Cria diretorio caso não exista
+
+	if(!opendir ("InstS")){
+		cout <<  "\n\n Nao tem diretorio \"InstS\" !!        FUDEU MUITO!! \n" << endl;
+
+		if(system("mkdir InstS;") == 0){
+			cout << " Criou pasta InstS" << endl;
+		}else{
+			cout << " Problema ao criar pasta InstS" << endl;
+		}
+
+		/* Outra maneira de criar arquivos
+
+		SituacaoDiretorio = mkdir("./myfolder", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+		*/
+
+		if(!opendir ("InstS")){
+			cout << "\n Nao tem diretorio  \"InstS\" !!        FUDEU MUITO!! \n" << endl;
+		}else{
+			cout << " Tem diretorio \"InstS\" !!  " << endl;
+		}
+	}else{
+		cout << " Tem diretorio \"InstS\" !!  " << endl;
+	}
+
 // Cria o nome da instancia para o modelo
 
-	CaminhoArquivo = "./";
-
-	//CaminhoArquivo = "./InstS/";
 	Nome.assign(a);
 	if( Nome.size() > 3){
 		Nome.resize(Nome.size()-4);
@@ -473,40 +490,64 @@ void DadosSaloman::CriarInstanciaSaloman(char* a){
 		TXT = ".txt";
 		Nome.insert(Nome.size(),TXT);
 
-		cout << " Nome = " << Nome << endl << endl;
+		cout << "      Nome da Instancia Solomon = " << Nome << endl << endl;
 
 		a = new char[Nome.size()+1];
 		a[Nome.size()]=0;
 		memcpy(a,Nome.c_str(),Nome.size());
 
 	}else{
-		cout << "Arquivo passado com tamanho invaldo " <<  Nome << endl << endl ;
+		cout << "Arquivo passado com tamanho invaldo " <<  Nome << endl ;
 	}
 
-	cout <<  "  Nome = " << Nome << endl;
+	//cout <<  "  Nome = " << Nome << endl;
 
-	b = new char[CaminhoArquivo.size()+1];
-	b[CaminhoArquivo.size()]=0;
-	memcpy(b,CaminhoArquivo.c_str(),CaminhoArquivo.size());
+	//CaminhoArquivo1 = "./";
+	CaminhoArquivo1 = "./InstS/";
+
+	b = new char[CaminhoArquivo1.size()+1];
+	b[CaminhoArquivo1.size()]=0;
+	memcpy(b,CaminhoArquivo1.c_str(),CaminhoArquivo1.size());
 	strcat(b,a);
 
-	cout << endl << " A = " << a << "  B = " << b << endl;
+	cout << endl << "  Arquivo = " << a << "  Caminho = " << b << endl;
 
 // Cria arquivo para guardar os dados da instancia criada
 
 	InstanciaSaloman.open(b);
 
-	Dados = "-Dados";
-	NomeAux.insert(NomeAux.size(),Dados);
-	TXT = ".txt";
-	NomeAux.insert(NomeAux.size(),TXT);
+	if(!opendir ("Dat")){
+		cout <<  "\n\n Nao tem diretorio \"Dat\" !!        FUDEU MUITO!! \n" << endl;
 
-	cout << " Nome dados = " << NomeAux << endl << endl;
+		if(system("mkdir Dat;") == 0){
+			cout << " Criou pasta Dat" << endl;
+		}else{
+			cout << " Problema ao criar pasta Dat" << endl;
+		}
 
-	aux1 = new char[NomeAux.size()+1];
-	aux1[NomeAux.size()]=0;
-	memcpy(aux1,NomeAux.c_str(),NomeAux.size());
+		/* Outra maneira de criar arquivos
+
+		SituacaoDiretorio = mkdir("./myfolder", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+		*/
+
+		if(!opendir ("Dat")){
+			cout << "\n Nao tem diretorio  \"Dat\" !!        FUDEU MUITO!! \n" << endl;
+		}else{
+			cout << " Tem diretorio \"Dat\" !!  " << endl;
+		}
+	}else{
+		cout << " Tem diretorio \"Dat\" !!  " << endl;
+	}
+
+	CaminhoArquivo2 = "./Dat/";
+
+	aux1 = new char[CaminhoArquivo2.size()+1];
+	aux1[CaminhoArquivo2.size()]=0;
+	memcpy(aux1,CaminhoArquivo2.c_str(),CaminhoArquivo2.size());
+	strcat(aux1,a);
 	DadosInstanciaSalomonCriada.open(aux1);
+
+	cout << endl << "  Caminho salvar em pasta Dat = " << aux1 << endl;
 
 	DadosInstanciaSalomonCriada << b << endl;
 

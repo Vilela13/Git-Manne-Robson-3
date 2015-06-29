@@ -80,7 +80,7 @@ public:
 	vector <  double  > TminP;
 	vector <  double  > TmaxP;
 
-	void LeDados(char*);
+	int LeDados(char*);
 
 /* Variaveis do CPLEX */
 
@@ -438,7 +438,7 @@ cout << " Tempo Final Planta " << endl;
     Instancia.close();
 }
 
-void No::LeDados(char *a){
+int No::LeDados(char *a){
 
 	int Aux1;
 	int comentarios;
@@ -449,325 +449,331 @@ void No::LeDados(char *a){
 	double AuxSvii;
 
 // Abre arquivo das instâncias
+
 	arq.open(a);
+		if (arq.is_open()){
 
-// le nome instância
-	arq >> Instancia;
-	if( comentarios == 1){
-		cout << " Nome instancia "<<  Instancia << endl;
-	}
-
-// le número de plantas
-	arq >> NP;
-	if( comentarios == 1){
-		cout << " Numero de plantas "<<  NP << endl;
-	}
-
-// le número de entregas
-	arq >> NE;
-	if( comentarios == 1){
-		cout << " Numero de Entregas "<< NE << endl;
-	}
-
-// le número de veículos
-	arq >> NV;
-	if( comentarios == 1){
-		cout << " Numero de Veiculos "<< NV << endl;
-	}
-
-// le V
-	arq >> V;
-	if( comentarios == 1){
-		cout << " V "<< V << endl;
-	}
-
-// le número de veículos por planta
-	if( comentarios == 1){
-		cout << "Conjunto de Veiculos por Planta " << endl;
-	}
-	TCVP.resize(NP);
-	CVP.resize(NP);
-	for( int i = 0; i < NP ; i++){
-		arq >> Aux1;
-		TCVP[i] = Aux1;
+	// le nome instância
+		arq >> Instancia;
 		if( comentarios == 1){
-			cout << '\t' << "Planta " << i + 1 <<  " ( " << TCVP[i] << " ) -> ";
+			cout << " Nome instancia "<<  Instancia << endl;
 		}
-		CVP[i].resize(Aux1);
-		for( int j = 0; j < Aux1 ; j++){
-			arq >>  CVP[i][j];
-			if( comentarios == 1){
-				cout << CVP[i][j] << " ";
-			}
-		}
+
+	// le número de plantas
+		arq >> NP;
 		if( comentarios == 1){
-			cout << endl;
+			cout << " Numero de plantas "<<  NP << endl;
 		}
-	}
-	if( comentarios == 1){
-		cout << endl;
-	}
 
-// le número de demandas por entrega
-	if( comentarios == 1){
-		cout << "Conjunto de Demandas por Entrega " << endl;
-	}
-	TCDE.resize(NE);
-	CDE.resize(NE);
-	for( int i = 0; i < NE ; i++){
-		arq >> Aux1;
-		TCDE[i] = Aux1;
+	// le número de entregas
+		arq >> NE;
 		if( comentarios == 1){
-			cout << '\t' << "Entrega " << i + 1 <<  " ( " << TCDE[i] << " ) -> ";
+			cout << " Numero de Entregas "<< NE << endl;
 		}
-		CDE[i].resize(Aux1);
-		for( int j = 0; j < Aux1 ; j++){
-			arq >>  CDE[i][j];
-			if( comentarios == 1){
-				cout << CDE[i][j] << " ";
-			}
-		}
+
+	// le número de veículos
+		arq >> NV;
 		if( comentarios == 1){
-			cout << endl;
+			cout << " Numero de Veiculos "<< NV << endl;
 		}
-	}
-	if( comentarios == 1){
-		cout << endl;
-	}
 
-// le distâncias da planta as Entregas (tempo)
-	Dpe.resize(NP);
-	for(int p = 0; p < NP; p++){
-		Dpe[p].resize(NE);
-	}
-
-	if( comentarios == 1){
-		cout << "Distancia Planta - Entrega " << endl;
-		cout << ' ';
-		for( int e = 0; e <  NE; e++){
-			cout << '\t' << e+1 ;
-		}
-		cout << endl;
-	}
-	for( int p = 0; p <  NP; p++){
+	// le V
+		arq >> V;
 		if( comentarios == 1){
-			cout << p+1 << '\t';
+			cout << " V "<< V << endl;
 		}
-		for( int e = 0; e <  NE; e++){
-			arq >> Dpe[p][e];
-			if( comentarios == 1){
-				cout << Dpe[p][e] << " ";
-			}
-		}
+
+	// le número de veículos por planta
 		if( comentarios == 1){
-			cout << endl;
+			cout << "Conjunto de Veiculos por Planta " << endl;
 		}
-	}
-
-// le distâncias das Entregas as plantas (tempo)
-	Dep.resize(NE);
-	for(int e = 0; e < NE; e++){
-		Dep[e].resize(NP);
-	}
-
-	if( comentarios == 1){
-		cout << "Distancia Entrega - Planta " << endl;
-		cout << ' ';
-		for( int p = 0; p <  NP; p++){
-			cout << '\t' << p+1 ;
-		}
-		cout << endl;
-	}
-	for( int e = 0; e <  NE; e++){
-		if( comentarios == 1){
-			cout << e+1 << '\t';
-		}
-		for( int p = 0; p <  NP; p++){
-			arq >> Dep[e][p];
-			if( comentarios == 1){
-				cout << Dep[e][p] << " ";
-			}
-		}
-		if( comentarios == 1){
-			cout << endl;
-		}
-	}
-
-// le tempos de processamento de cada veículo em cada entrega
-
-	Pvi.resize( NV);
-	for( int i = 0; i <  NV; i++){
-		Pvi[i].resize( NE);
-		for( int j = 0; j <  NE; j++){
-			Pvi[i][j].resize(TCDE[j]);
-		}
-	}
-
-	if( comentarios == 1){
-		cout << "Tempo Para Descarregamento " << endl;
-	}
-
-	for( int i = 0; i <  NV; i++){
-		arq >> Aux1;
-		if( comentarios == 1){
-			cout << '\t' << '\t' << "Veiculo " << Aux1 << endl;
-		}
-		for( int j = 0; j <  NE; j++){
+		TCVP.resize(NP);
+		CVP.resize(NP);
+		for( int i = 0; i < NP ; i++){
 			arq >> Aux1;
+			TCVP[i] = Aux1;
 			if( comentarios == 1){
-				cout << "Entrega " << j+1 << " (" << Aux1 << ") " <<  '\t';
+				cout << '\t' << "Planta " << i + 1 <<  " ( " << TCVP[i] << " ) -> ";
 			}
-			for( int z = 0; z <  Aux1; z++){
-				arq >> Pvi[i][j][z];
+			CVP[i].resize(Aux1);
+			for( int j = 0; j < Aux1 ; j++){
+				arq >>  CVP[i][j];
 				if( comentarios == 1){
-					cout << Pvi[i][j][z] << '\t';
+					cout << CVP[i][j] << " ";
 				}
 			}
 			if( comentarios == 1){
 				cout << endl;
 			}
 		}
-	}
-
-// le tempos entre chegadas
-
-	Omega.resize(NE);
-
-	if( comentarios == 1){
-		cout << " Tempo entre chagadas " << endl;
-	}
-
-	for( int e = 0; e <  NE; e++){
-		arq >>Omega[e];
 		if( comentarios == 1){
-			cout <<Omega[e] << '\t';
+			cout << endl;
 		}
-	}
-	if( comentarios == 1){
-		cout << endl;
-	}
 
-// le  tempo para ir em uma entrada e outra
-
-	Svii.resize(NV);
-	for( int v = 0; v <  NV; v++){
-		 Svii[v].resize(NE);
-		 for( int e1 = 0; e1 <  NE; e1++){
-			 Svii[v][e1].resize(TCDE[e1]);
-			 for (int i = 0; i < TCDE[e1]; i++) {
-				 Svii[v][e1][i].resize(NE);
-				 for( int e2 = 0; e2 <  NE; e2++){
-					 Svii[v][e1][i][e2].resize(TCDE[e2]);
-				 }
-			 }
-		 }
-	}
-
-
-
-	if( comentarios == 1){
-		cout << " Tempo para ir de uma entrada a outra " << endl;
-	}
-	for( int v = 0; v <  NV; v++){
-		arq >> Aux1;
+	// le número de demandas por entrega
 		if( comentarios == 1){
-			cout << '\t' << '\t' << "Veiculo " << Aux1 << endl ;
+			cout << "Conjunto de Demandas por Entrega " << endl;
+		}
+		TCDE.resize(NE);
+		CDE.resize(NE);
+		for( int i = 0; i < NE ; i++){
+			arq >> Aux1;
+			TCDE[i] = Aux1;
+			if( comentarios == 1){
+				cout << '\t' << "Entrega " << i + 1 <<  " ( " << TCDE[i] << " ) -> ";
+			}
+			CDE[i].resize(Aux1);
+			for( int j = 0; j < Aux1 ; j++){
+				arq >>  CDE[i][j];
+				if( comentarios == 1){
+					cout << CDE[i][j] << " ";
+				}
+			}
+			if( comentarios == 1){
+				cout << endl;
+			}
+		}
+		if( comentarios == 1){
+			cout << endl;
+		}
+
+	// le distâncias da planta as Entregas (tempo)
+		Dpe.resize(NP);
+		for(int p = 0; p < NP; p++){
+			Dpe[p].resize(NE);
+		}
+
+		if( comentarios == 1){
+			cout << "Distancia Planta - Entrega " << endl;
+			cout << ' ';
 			for( int e = 0; e <  NE; e++){
-				cout  <<'\t' << e+1 ;
+				cout << '\t' << e+1 ;
 			}
 			cout << endl;
 		}
-		for( int e1 = 0; e1 <  NE; e1++){
+		for( int p = 0; p <  NP; p++){
 			if( comentarios == 1){
-				cout << e1+1 << '\t';
+				cout << p+1 << '\t';
 			}
-			for( int e2 = 0; e2 <  NE; e2++){
-				arq >>  AuxSvii;
-				for( int i = 0; i < TCDE[e1]; i++){
-					for( int j = 0; j < TCDE[e2]; j++){
-						Svii[v][e1][i][e2][j] = AuxSvii;
+			for( int e = 0; e <  NE; e++){
+				arq >> Dpe[p][e];
+				if( comentarios == 1){
+					cout << Dpe[p][e] << " ";
+				}
+			}
+			if( comentarios == 1){
+				cout << endl;
+			}
+		}
+
+	// le distâncias das Entregas as plantas (tempo)
+		Dep.resize(NE);
+		for(int e = 0; e < NE; e++){
+			Dep[e].resize(NP);
+		}
+
+		if( comentarios == 1){
+			cout << "Distancia Entrega - Planta " << endl;
+			cout << ' ';
+			for( int p = 0; p <  NP; p++){
+				cout << '\t' << p+1 ;
+			}
+			cout << endl;
+		}
+		for( int e = 0; e <  NE; e++){
+			if( comentarios == 1){
+				cout << e+1 << '\t';
+			}
+			for( int p = 0; p <  NP; p++){
+				arq >> Dep[e][p];
+				if( comentarios == 1){
+					cout << Dep[e][p] << " ";
+				}
+			}
+			if( comentarios == 1){
+				cout << endl;
+			}
+		}
+
+	// le tempos de processamento de cada veículo em cada entrega
+
+		Pvi.resize( NV);
+		for( int i = 0; i <  NV; i++){
+			Pvi[i].resize( NE);
+			for( int j = 0; j <  NE; j++){
+				Pvi[i][j].resize(TCDE[j]);
+			}
+		}
+
+		if( comentarios == 1){
+			cout << "Tempo Para Descarregamento " << endl;
+		}
+
+		for( int i = 0; i <  NV; i++){
+			arq >> Aux1;
+			if( comentarios == 1){
+				cout << '\t' << '\t' << "Veiculo " << Aux1 << endl;
+			}
+			for( int j = 0; j <  NE; j++){
+				arq >> Aux1;
+				if( comentarios == 1){
+					cout << "Entrega " << j+1 << " (" << Aux1 << ") " <<  '\t';
+				}
+				for( int z = 0; z <  Aux1; z++){
+					arq >> Pvi[i][j][z];
+					if( comentarios == 1){
+						cout << Pvi[i][j][z] << '\t';
 					}
 				}
 				if( comentarios == 1){
-					cout << AuxSvii << '\t';
+					cout << endl;
 				}
 			}
+		}
+
+	// le tempos entre chegadas
+
+		Omega.resize(NE);
+
+		if( comentarios == 1){
+			cout << " Tempo entre chagadas " << endl;
+		}
+
+		for( int e = 0; e <  NE; e++){
+			arq >>Omega[e];
 			if( comentarios == 1){
+				cout <<Omega[e] << '\t';
+			}
+		}
+		if( comentarios == 1){
+			cout << endl;
+		}
+
+	// le  tempo para ir em uma entrada e outra
+
+		Svii.resize(NV);
+		for( int v = 0; v <  NV; v++){
+			 Svii[v].resize(NE);
+			 for( int e1 = 0; e1 <  NE; e1++){
+				 Svii[v][e1].resize(TCDE[e1]);
+				 for (int i = 0; i < TCDE[e1]; i++) {
+					 Svii[v][e1][i].resize(NE);
+					 for( int e2 = 0; e2 <  NE; e2++){
+						 Svii[v][e1][i][e2].resize(TCDE[e2]);
+					 }
+				 }
+			 }
+		}
+
+
+
+		if( comentarios == 1){
+			cout << " Tempo para ir de uma entrada a outra " << endl;
+		}
+		for( int v = 0; v <  NV; v++){
+			arq >> Aux1;
+			if( comentarios == 1){
+				cout << '\t' << '\t' << "Veiculo " << Aux1 << endl ;
+				for( int e = 0; e <  NE; e++){
+					cout  <<'\t' << e+1 ;
+				}
 				cout << endl;
 			}
-		 }
-	}
-
-
-
-
-
-
-
-// le  tempo inicio e final entrada
-
-	TminE.resize(NE);
-	if( comentarios == 1){
-		cout << " Tempo Inicio Entrada " << endl;
-	}
-	 for( int i = 0; i <  NE; i++){
-		 arq >> TminE[i];
-		 if( comentarios == 1){
-			 cout << i + 1 << ' ' << TminE[i]<< endl;
-		 }
-	 }
-	 if( comentarios == 1){
-		 cout << endl;
-	 }
-
-	TmaxE.resize(NE);
-	if( comentarios == 1){
-		cout << " Tempo Final Entrada " << endl;
-	}
-	for( int i = 0; i <  NE; i++){
-		arq >> TmaxE[i];
-		if( comentarios == 1){
-			cout << i + 1 << ' ' << TmaxE[i]<< endl;
+			for( int e1 = 0; e1 <  NE; e1++){
+				if( comentarios == 1){
+					cout << e1+1 << '\t';
+				}
+				for( int e2 = 0; e2 <  NE; e2++){
+					arq >>  AuxSvii;
+					for( int i = 0; i < TCDE[e1]; i++){
+						for( int j = 0; j < TCDE[e2]; j++){
+							Svii[v][e1][i][e2][j] = AuxSvii;
+						}
+					}
+					if( comentarios == 1){
+						cout << AuxSvii << '\t';
+					}
+				}
+				if( comentarios == 1){
+					cout << endl;
+				}
+			 }
 		}
-	 }
-	if( comentarios == 1){
-		cout << endl;
-	}
 
-// le  tempo inicio e final planta
-	 TminP.resize(NP);
-	 if( comentarios == 1){
-		 cout << " Tempo Inicio Planta " << endl;
-	 }
-	 for( int i = 0; i <  NP; i++){
-		 arq >> TminP[i];
-		 if( comentarios == 1){
-			 cout << i + 1 << ' ' << TminP[i] << endl;
-		 }
-	 }
-	 if( comentarios == 1){
-		 cout << endl;
-	 }
 
-	TmaxP.resize(NP);
-	if( comentarios == 1){
-		cout << " Tempo Final Planta " << endl;
-	}
-	for( int i = 0; i <  NP; i++){
-		arq >> TmaxP[i];
+
+
+
+
+
+	// le  tempo inicio e final entrada
+
+		TminE.resize(NE);
 		if( comentarios == 1){
-			cout << i + 1 << ' ' << TmaxP[i] << endl;
+			cout << " Tempo Inicio Entrada " << endl;
 		}
+		 for( int i = 0; i <  NE; i++){
+			 arq >> TminE[i];
+			 if( comentarios == 1){
+				 cout << i + 1 << ' ' << TminE[i]<< endl;
+			 }
+		 }
+		 if( comentarios == 1){
+			 cout << endl;
+		 }
+
+		TmaxE.resize(NE);
+		if( comentarios == 1){
+			cout << " Tempo Final Entrada " << endl;
+		}
+		for( int i = 0; i <  NE; i++){
+			arq >> TmaxE[i];
+			if( comentarios == 1){
+				cout << i + 1 << ' ' << TmaxE[i]<< endl;
+			}
+		 }
+		if( comentarios == 1){
+			cout << endl;
+		}
+
+	// le  tempo inicio e final planta
+		 TminP.resize(NP);
+		 if( comentarios == 1){
+			 cout << " Tempo Inicio Planta " << endl;
+		 }
+		 for( int i = 0; i <  NP; i++){
+			 arq >> TminP[i];
+			 if( comentarios == 1){
+				 cout << i + 1 << ' ' << TminP[i] << endl;
+			 }
+		 }
+		 if( comentarios == 1){
+			 cout << endl;
+		 }
+
+		TmaxP.resize(NP);
+		if( comentarios == 1){
+			cout << " Tempo Final Planta " << endl;
+		}
+		for( int i = 0; i <  NP; i++){
+			arq >> TmaxP[i];
+			if( comentarios == 1){
+				cout << i + 1 << ' ' << TmaxP[i] << endl;
+			}
+		}
+		if( comentarios == 1){
+			cout << endl;
+		}
+
+
+
+
+		arq.close();
+		return 1;
+	}else{
+		cout << "         Fudeu Muito! Não abriu o arquivo " << a << endl << endl;
+		return 0;
 	}
-	if( comentarios == 1){
-		cout << endl;
-	}
-
-
-
-
-	arq.close();
-
 }
 
 void No::Cplex(char *a){

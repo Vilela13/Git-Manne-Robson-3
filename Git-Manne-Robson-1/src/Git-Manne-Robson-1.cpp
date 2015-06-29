@@ -54,18 +54,22 @@ int main(int argc, char **argv) {
 
 		InstanciaSaloman->CarregarNumeroNosCoordenadas(a);
 
-		InstanciaSaloman->EscreverDadosLidosInstanciaSaloman();
+		//InstanciaSaloman->EscreverDadosLidosInstanciaSaloman();
 
-		//cout << " entrei1" << endl;
+		cout << " entrei 1 - carrega dados" << endl;
 
 		InstanciaSaloman->EscreverComandosR(a,'4');
 		// 1 => .ps	  2 =>.png   3 =>.jpeg    4 =>.pdf
 
-		//cout << " entrei2" << endl;
+		cout << " entrei 2 - escreve comandos R" << endl;
 
 		InstanciaSaloman->EscreverComandosExcel(a);
 
+		cout << " entrei 3 - escreve comandos excel" << endl;
+
 		InstanciaSaloman->CriarInstanciaSaloman(a);
+
+		cout << " entrei 4 - escreve comandos excel" << endl;
 	}
 
 
@@ -86,7 +90,7 @@ int main(int argc, char **argv) {
 		a = new char[Nome.size()+1];
 		a[Nome.size()]=0;
 		memcpy(a,Nome.c_str(),Nome.size());
-		cout << a  << endl ;
+		//cout << a  << endl ;
 		ListaInstancias.push_back(a);
 		ArquivoInstancia >> Nome;
 	}
@@ -114,8 +118,9 @@ int main(int argc, char **argv) {
 		ListaInstancias.pop_front();
 		cout << " Modelo <= " << a << endl;
 
-		Instancia->LeDados(a);
-		Instancia->Cplex(a);
+		if( Instancia->LeDados(a) == 1){
+			Instancia->Cplex(a);
+		}
 	}
 
 
