@@ -2,7 +2,7 @@ Solution status = Feasible
 Solution primal cost = 192.251
 Solution dual cost = 166.499
 Gap = 13.3947%
-Tempo = 120.079 segundos. 
+Tempo = 120.049 segundos. 
 
  Veiculo 1 Sai as 7
 	 Entrega[Construcao->1][Job->2] as 8.16667

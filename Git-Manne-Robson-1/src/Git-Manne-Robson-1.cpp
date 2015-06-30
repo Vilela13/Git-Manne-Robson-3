@@ -12,6 +12,8 @@ int main(int argc, char **argv) {
 
 	ofstream escreve;
 
+	int resolveu;
+
 // RecriaInstancias
 
 // -------------------------- Le arquivo com as instancias de Solomon e as guarda em uma lista ----------------------- //
@@ -111,21 +113,23 @@ int main(int argc, char **argv) {
 	//cout << endl << endl << " Lendo arquivo " << endl << endl << endl;
 
 
-	No *Instancia = new No;
+	No *Instancia;
 
 	while( !ListaInstancias.empty()){
+		Instancia = new No;
 		it = ListaInstancias.begin();
 		a = *it;
 		ListaInstancias.pop_front();
 		cout << " Modelo <= " << a << endl;
 
 		if( Instancia->LeDados(a) == 1){
-			Instancia->Cplex(a);
+			resolveu = Instancia->Cplex(a);
+			cout << endl << endl << " Resolveu = " << resolveu << endl ;
 		}
+		free(Instancia);
 	}
 
 
-	free(Instancia);
 
 
 

@@ -95,7 +95,7 @@ public:
 
 /* Funções Cplex */
 
-    void Cplex(char *a);
+    int Cplex(char *a);
 
 /* Escrever em diretorio a saída */
 
@@ -789,16 +789,19 @@ int No::LeDados(char *a){
 	}
 }
 
-void No::Cplex(char *a){
+int No::Cplex(char *a){
 
 	char varName[24];
 
 	int vAux;
+
 	int Escreve;
 	int EscreveVariaveis;
 	int OutPut1;
 	int OutPut2;
 	int SaidaPastaSeparada;
+	int EscreveArquivoComRespostas;
+	int EscreveNaTelaResultados;
 
 	int UsouCaminhao;
 	int AtendeCliente;
@@ -808,6 +811,8 @@ void No::Cplex(char *a){
 	OutPut1 = 1;
 	OutPut2 = 1;
 	SaidaPastaSeparada = 1;
+	EscreveArquivoComRespostas = 1;
+	EscreveNaTelaResultados = 1;
 
 // Começa a escrever modelo do Cplex
 
@@ -1137,7 +1142,7 @@ void No::Cplex(char *a){
 
 // Modelo
 	IloCplex cplex(model);
-	cplex.exportModel("model.lp");
+	//cplex.exportModel("model.lp");
 
 
 	if(!opendir ("Out")){
@@ -1221,21 +1226,21 @@ void No::Cplex(char *a){
 
 	ofstream logfile2(c2);
 
+	if( EscreveNaTelaResultados == 1){
+		cout << "Solution status = " << cplex.getStatus() << endl;
+		cout << "Solution primal cost = " << cplex.getObjValue() << endl;
+		cout << "Solution dual cost = " << cplex.getBestObjValue() << endl ;
+		cout << "Gap = " << 100 * ( cplex.getObjValue() - cplex.getBestObjValue() ) / cplex.getObjValue() << "%" << endl ;
+		cout << "Tempo = " << Tempo2 - Tempo1 << " segundos. " << endl<< endl;
+	}
 
-
-
-
-	cout << "Solution status = " << cplex.getStatus() << endl;
-	logfile2 <<  "Solution status = " << cplex.getStatus() << endl;
-	cout << "Solution primal cost = " << cplex.getObjValue() << endl;
-	logfile2 << "Solution primal cost = " << cplex.getObjValue() << endl;
-	cout << "Solution dual cost = " << cplex.getBestObjValue() << endl ;
-	logfile2 << "Solution dual cost = " << cplex.getBestObjValue() << endl ;
-	cout << "Gap = " << 100 * ( cplex.getObjValue() - cplex.getBestObjValue() ) / cplex.getObjValue() << "%" << endl ;
-	logfile2 << "Gap = " << 100 * ( cplex.getObjValue() - cplex.getBestObjValue() ) / cplex.getObjValue() << "%" << endl ;
-	cout << "Tempo = " << Tempo2 - Tempo1 << " segundos. " << endl<< endl;
-	logfile2 << "Tempo = " << Tempo2 - Tempo1 << " segundos. " << endl << endl;
-
+	if( EscreveArquivoComRespostas == 1){
+		logfile2 <<  "Solution status = " << cplex.getStatus() << endl;
+		logfile2 << "Solution primal cost = " << cplex.getObjValue() << endl;
+		logfile2 << "Solution dual cost = " << cplex.getBestObjValue() << endl ;
+		logfile2 << "Gap = " << 100 * ( cplex.getObjValue() - cplex.getBestObjValue() ) / cplex.getObjValue() << "%" << endl ;
+		logfile2 << "Tempo = " << Tempo2 - Tempo1 << " segundos. " << endl << endl;
+	}
 
 // inicializa variaveis para imprimir
 
@@ -1327,19 +1332,37 @@ void No::Cplex(char *a){
 	if( EscreveVariaveis == 1){
 
 		for (int v = 0; v< NV; v++) {
-			cout << " Veiculo " << v << endl;
+			if( EscreveArquivoComRespostas == 1){
+				logfile2 << " Veiculo " << v << endl;
+			}
+			if( EscreveNaTelaResultados == 1){
+				cout << " Veiculo " << v << endl;
+			}
 			for (int e = 0; e < NE; e++) {
 				for( int i = 0; i < TCDE[e]; i++){
-					cout << Alfa[v][e][i].getName() << " [" << cplex.getValue(Alfa[v][e][i]) << "]  ";
-					logfile2 << Alfa[v][e][i].getName() << " [" << cplex.getValue(Alfa[v][e][i]) << "]  ";
+					if( EscreveNaTelaResultados == 1){
+						cout << Alfa[v][e][i].getName() << " [" << cplex.getValue(Alfa[v][e][i]) << "]  ";
+					}
+					if( EscreveArquivoComRespostas == 1){
+						logfile2 << Alfa[v][e][i].getName() << " [" << cplex.getValue(Alfa[v][e][i]) << "]  ";
+					}
 				}
-			cout << endl;
-			logfile2 << endl;
+				if( EscreveNaTelaResultados == 1){
+					cout << endl;
+				}
+				if( EscreveArquivoComRespostas == 1){
+					logfile2 << endl;
+				}
 			}
 		}
 
 		for (int v = 0; v< NV; v++) {
-			cout << " Veiculo " << v << endl;
+			if( EscreveNaTelaResultados == 1){
+				cout << " Veiculo " << v << endl;
+			}
+			if( EscreveArquivoComRespostas == 1){
+				logfile2 << " Veiculo " << v << endl;
+			}
 			for (int e1 = 0; e1 < NE; e1++) {
 				for( int i = 0; i < TCDE[e1]; i++){
 					for (int e2 = 0; e2 < NE; e2++) {
@@ -1348,39 +1371,68 @@ void No::Cplex(char *a){
 
 							}else{
 								if( e1 == e2){
-									cout << Beta[v][e1][i][e2][j].getName() << " [" << cplex.getValue(Beta[v][e1][i][e2][j]) << "]  ";
-									logfile2 << Beta[v][e1][i][e2][j].getName() << " [" << cplex.getValue(Beta[v][e1][i][e2][j]) << "]  ";
+									if( EscreveNaTelaResultados == 1){
+										cout << Beta[v][e1][i][e2][j].getName() << " [" << cplex.getValue(Beta[v][e1][i][e2][j]) << "]  ";
+									}
+									if( EscreveArquivoComRespostas == 1){
+										logfile2 << Beta[v][e1][i][e2][j].getName() << " [" << cplex.getValue(Beta[v][e1][i][e2][j]) << "]  ";
+									}
 								}
 							}
 						}
 					}
-					cout << endl;
-					logfile2 << endl;
+					if( EscreveNaTelaResultados == 1){
+						cout << endl;
+					}
+					if( EscreveArquivoComRespostas == 1){
+						logfile2 << endl;
+					}
 				}
 			}
 		}
 
 		for (int v = 0; v < NV; v++) {
-			cout << " Veiculo " << v << endl;
+			if( EscreveArquivoComRespostas == 1){
+				logfile2 << " Veiculo " << v << endl;
+			}
+			if( EscreveNaTelaResultados == 1){
+				cout << " Veiculo " << v << endl;
+			}
 			for (int e = 0; e < NE; e++) {
 				for( int i = 0; i < TCDE[e]; i++){
-					cout << Tvei[v][e][i].getName() << " [" << cplex.getValue(Tvei[v][e][i]) << "]  ";
-					logfile2 << Tvei[v][e][i].getName() << " [" << cplex.getValue(Tvei[v][e][i]) << "]  ";
+					if( EscreveNaTelaResultados == 1){
+						cout << Tvei[v][e][i].getName() << " [" << cplex.getValue(Tvei[v][e][i]) << "]  ";
+					}
+					if( EscreveArquivoComRespostas == 1){
+						logfile2 << Tvei[v][e][i].getName() << " [" << cplex.getValue(Tvei[v][e][i]) << "]  ";
+					}
 				}
-				cout << endl;
-				logfile2 << endl;
+				if( EscreveNaTelaResultados == 1){
+					cout << endl;
+				}
+				if( EscreveArquivoComRespostas == 1){
+					logfile2 << endl;
+				}
 			}
 		}
 
 		vAux = 0;
 		for (int p = 0; p < NP; p++) {
 			for (int v = 0; v < TCVP[p]; v++) {
-				cout << Tv[vAux].getName() << " [" << cplex.getValue(Tv[vAux]) << "]  ";
-				logfile2 << Tv[vAux].getName() << " [" << cplex.getValue(Tv[vAux]) << "]  ";
+				if( EscreveNaTelaResultados == 1){
+					cout << Tv[vAux].getName() << " [" << cplex.getValue(Tv[vAux]) << "]  ";
+				}
+				if( EscreveArquivoComRespostas == 1){
+					logfile2 << Tv[vAux].getName() << " [" << cplex.getValue(Tv[vAux]) << "]  ";
+				}
 				vAux = vAux + 1;
 			}
-			cout << endl;
-			logfile2 << endl;
+			if( EscreveNaTelaResultados == 1){
+				cout << endl;
+			}
+			if( EscreveArquivoComRespostas == 1){
+				logfile2 << endl;
+			}
 		}
 
 	}
@@ -1392,19 +1444,27 @@ void No::Cplex(char *a){
 		vAux = 0;
 		for (int p = 0; p < NP; p++) {
 			for (int v = 0; v < TCVP[p]; v++) {
-				cout << " Veiculo " << vAux + 1 << " Sai as ";
-				logfile2 << " Veiculo " << vAux + 1 << " Sai as ";
-				cout <<  cplex.getValue(Tv[vAux]) << endl;
-				logfile2 <<  cplex.getValue(Tv[vAux]) << endl;
+				if( EscreveNaTelaResultados == 1){
+					cout << " Veiculo " << vAux + 1 << " Sai as ";
+					cout <<  cplex.getValue(Tv[vAux]) << endl;
+				}
+				if( EscreveArquivoComRespostas == 1){
+					logfile2 << " Veiculo " << vAux + 1 << " Sai as ";
+					logfile2 <<  cplex.getValue(Tv[vAux]) << endl;
+				}
 				for (int e = 0; e < NE; e++) {
 					for( int i = 0; i < TCDE[e]; i++){
 						if( cplex.getValue(Alfa[vAux][e][i]) == 1){
-							cout << '\t' << " Entrega[Construcao->" << e+1 << "][Job->" << i+1<< "] as ";
-							logfile2 << '\t' << " Entrega[Construcao->" << e+1 << "][Job->" << i+1<< "] as ";
-							printf("%.2f", cplex.getValue(Tvei[vAux][e][i]) );
-							logfile2 << cplex.getValue(Tvei[vAux][e][i]);
-							cout << endl;
-							logfile2 << endl;
+							if( EscreveNaTelaResultados == 1){
+								cout << '\t' << " Entrega[Construcao->" << e+1 << "][Job->" << i+1<< "] as ";
+								printf("%.2f", cplex.getValue(Tvei[vAux][e][i]) );
+								cout << endl;
+							}
+							if( EscreveArquivoComRespostas == 1){
+								logfile2 << '\t' << " Entrega[Construcao->" << e+1 << "][Job->" << i+1<< "] as ";
+								logfile2 << cplex.getValue(Tvei[vAux][e][i]);
+								logfile2 << endl;
+							}
 						}
 					}
 				}
@@ -1417,53 +1477,78 @@ void No::Cplex(char *a){
 
 // Tempo de cada entrega em cada cliente
 
-		cout << endl << endl;
-		logfile2 << endl << endl;
-		cout << "           Tempo de entrega em cada cliente         " << endl;
-		logfile2 <<  "           Tempo de entrega em cada cliente         " << endl;
+		if( EscreveNaTelaResultados == 1){
+			cout << endl << endl;
+			cout << "           Tempo de entrega em cada cliente         " << endl;
+		}
+
+		if( EscreveArquivoComRespostas == 1){
+			logfile2 << endl << endl;
+			logfile2 <<  "           Tempo de entrega em cada cliente         " << endl;
+		}
 		for (int e = 0; e < NE; e++) {
-			cout << " Cliente " << e +1 << "\t[ ";
-			logfile2 << " Cliente " << e +1 << "\t[ ";
-			printf("%.2f", TminE[e]);
-			logfile2 << TminE[e];
-			cout << "\t<=\t";
-			logfile2 << "\t<=\t";
+			if( EscreveNaTelaResultados == 1){
+				cout << " Cliente " << e +1 << "\t[ ";
+				printf("%.2f", TminE[e]);
+				cout << "\t<=\t";
+			}
+			if( EscreveArquivoComRespostas == 1){
+				logfile2 << " Cliente " << e +1 << "\t[ ";
+				logfile2 << TminE[e];
+				logfile2 << "\t<=\t";
+			}
 			for( int i = 0; i < TCDE[e]; i++){
 				vAux = 0;
 				for (int p = 0; p < NP; p++) {
 					for (int v = 0; v < TCVP[p]; v++) {
 						if( AlfaImprimir[vAux][e][i] == 1 ){
 							//cout << "   Tvei[" << vAux << "][" << e << "][" << i <<"] " << TveiImprime[vAux][e][i];
-							cout << "\t";
-							logfile2 << "\t";
-							printf("%.2f", TveiImprime[vAux][e][i]);
-							logfile2 << TveiImprime[vAux][e][i];
-							cout << "[v" << vAux + 1<< "]";
-							logfile2 << "[v" << vAux + 1<< "]";
+							if( EscreveNaTelaResultados == 1){
+								cout << "\t";
+								printf("%.2f", TveiImprime[vAux][e][i]);
+								cout << "[v" << vAux + 1<< "]";
+							}
+							if( EscreveArquivoComRespostas == 1){
+								logfile2 << "\t";
+								logfile2 << TveiImprime[vAux][e][i];
+								logfile2 << "[v" << vAux + 1<< "]";
+							}
 						}
 						vAux++;
 					}
 
 				}
 			}
-			cout << "\t<=\t";
-			logfile2 << "\t<=\t";
-			printf("%.2f", TmaxE[e]);
-			logfile2 << TmaxE[e];
-			cout << "]" << endl;
-			logfile2 << "]" << endl;
+			if( EscreveNaTelaResultados == 1){
+				cout << "\t<=\t";
+				printf("%.2f", TmaxE[e]);
+				cout << "]" << endl;
+			}
+			if( EscreveArquivoComRespostas == 1){
+				logfile2 << "\t<=\t";
+				logfile2 << TmaxE[e];
+				logfile2 << "]" << endl;
+			}
 		}
 
 // Veiculos usados
 
-		cout << endl << endl;
-		logfile2 << endl << endl;
-		cout << "           Veiculos usados         " << endl;
-		logfile2 << "           Veiculos usados         " << endl;
+		if( EscreveNaTelaResultados == 1){
+			cout << endl << endl;
+			cout << "           Veiculos usados         " << endl;
+		}
+		if( EscreveArquivoComRespostas == 1){
+			logfile2 << endl << endl;
+			logfile2 << "           Veiculos usados         " << endl;
+		}
 		vAux = 0;
 		for (int p = 0; p < NP; p++) {
-			cout << "Planta " << p + 1 << endl;
-			logfile2 << "Planta " << p + 1 << endl;
+			if( EscreveNaTelaResultados == 1){
+				cout << "Planta " << p + 1 << endl;
+			}
+			if( EscreveArquivoComRespostas == 1){
+				logfile2 << "Planta " << p + 1 << endl;
+			}
 			for (int v = 0; v < TCVP[p]; v++) {
 				UsouCaminhao = 0;
 				for (int e = 0; e < NE; e++) {
@@ -1474,8 +1559,12 @@ void No::Cplex(char *a){
 					}
 				}
 				if( UsouCaminhao == 1){
-					cout << "  Veiculo " << vAux + 1 << " \t[clientes ->\t";
-					logfile2  << "  Veiculo " << vAux + 1 << " \t[clientes ->\t";
+					if( EscreveNaTelaResultados == 1){
+						cout << "  Veiculo " << vAux + 1 << " \t[clientes ->\t";
+					}
+					if( EscreveArquivoComRespostas == 1){
+						logfile2  << "  Veiculo " << vAux + 1 << " \t[clientes ->\t";
+					}
 					for (int e = 0; e < NE; e++) {
 						AtendeCliente = 0;
 						for( int i = 0; i < TCDE[e]; i++){
@@ -1484,17 +1573,29 @@ void No::Cplex(char *a){
 							}
 						}
 						if( AtendeCliente == 1){
-							cout << e + 1 << "\t";
-							logfile2 << e + 1 << "\t";
+							if( EscreveNaTelaResultados == 1){
+								cout << e + 1 << "\t";
+							}
+							if( EscreveArquivoComRespostas == 1){
+								logfile2 << e + 1 << "\t";
+							}
 						}
 					}
-					cout << "]" << endl;
-					logfile2  << "]" << endl;
+					if( EscreveNaTelaResultados == 1){
+						cout << "]" << endl;
+					}
+					if( EscreveArquivoComRespostas == 1){
+						logfile2  << "]" << endl;
+					}
 				}
 				vAux++;
 			}
-			cout << endl;
-			logfile2 << endl;
+			if( EscreveNaTelaResultados == 1){
+				cout << endl;
+			}
+			if( EscreveArquivoComRespostas == 1){
+				logfile2 << endl;
+			}
 		}
 
 
@@ -1502,7 +1603,10 @@ void No::Cplex(char *a){
 	}
 
 	logfile1.close();
+
 	logfile2.close();
+
+	return (1);
 
 }
 
