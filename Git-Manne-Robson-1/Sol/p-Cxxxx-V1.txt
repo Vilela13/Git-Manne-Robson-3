@@ -1,8 +1,8 @@
-Solution status = Feasible
-Solution primal cost = 192.251
+Solution status = 1
+Solution primal cost = 192.689
 Solution dual cost = 166.499
-Gap = 13.3947%
-Tempo = 120.049 segundos. 
+Gap = 13.5918%
+Tempo = 120.079 segundos. 
 
  Veiculo 1 Sai as 7
 	 Entrega[Construcao->1][Job->2] as 8.16667
@@ -36,9 +36,8 @@ Tempo = 120.049 segundos.
 	 Entrega[Construcao->11][Job->2] as 8.16667
  Veiculo 9 Sai as 7
 	 Entrega[Construcao->3][Job->1] as 8
-	 Entrega[Construcao->7][Job->1] as 10
-	 Entrega[Construcao->8][Job->2] as 11.1667
-	 Entrega[Construcao->9][Job->5] as 11.8084
+	 Entrega[Construcao->8][Job->2] as 11.9858
+	 Entrega[Construcao->9][Job->5] as 11.344
  Veiculo 10 Sai as 7
 	 Entrega[Construcao->3][Job->2] as 8.16667
 	 Entrega[Construcao->5][Job->1] as 9.41009
@@ -83,9 +82,9 @@ Tempo = 120.049 segundos.
  Cliente 4	[ 10	<=		10[v11]	10.1667[v20]	<=	11]
  Cliente 5	[ 9	<=		9.41009[v10]	9.74343[v7]	9.91009[v15]	10.0768[v3]	<=	11]
  Cliente 6	[ 10	<=		10.9857[v14]	<=	11]
- Cliente 7	[ 10	<=		10[v9]	<=	10.5]
- Cliente 8	[ 11	<=		11[v2]	11.1667[v9]	<=	12]
- Cliente 9	[ 9	<=		9.42243[v2]	9.61286[v1]	11.0107[v15]	11.1774[v11]	11.8084[v9]	<=	12]
+ Cliente 7	[ 10	<=		<=	10.5]
+ Cliente 8	[ 11	<=		11[v2]	11.9858[v9]	<=	12]
+ Cliente 9	[ 9	<=		9.42243[v2]	9.61286[v1]	11.0107[v15]	11.1774[v11]	11.344[v9]	<=	12]
  Cliente 10	[ 10	<=		11.2034[v13]	11.37[v18]	11.5367[v3]	11.7034[v4]	<=	12]
  Cliente 11	[ 8	<=		8[v7]	8.16667[v8]	8.41882[v3]	<=	8.5]
  Cliente 12	[ 8.5	<=		8.5[v15]	8.66667[v6]	<=	9]
@@ -106,7 +105,7 @@ Planta 1
   Veiculo 6 	[clientes ->	1	12	13	]
   Veiculo 7 	[clientes ->	3	5	11	]
   Veiculo 8 	[clientes ->	2	11	]
-  Veiculo 9 	[clientes ->	3	7	8	9	]
+  Veiculo 9 	[clientes ->	3	8	9	]
   Veiculo 10 	[clientes ->	3	5	]
 
 Planta 2

@@ -95,7 +95,7 @@ public:
 
 /* Funções Cplex */
 
-    int Cplex(char *a);
+    int Cplex(char *a, int &status, double &primal, double &dual, double &gap, double &tempo);
 
 /* Escrever em diretorio a saída */
 
@@ -789,7 +789,7 @@ int No::LeDados(char *a){
 	}
 }
 
-int No::Cplex(char *a){
+int No::Cplex(char *a, int &status, double &primal, double &dual, double &gap, double &tempo){
 
 	char varName[24];
 
@@ -813,6 +813,12 @@ int No::Cplex(char *a){
 	SaidaPastaSeparada = 1;
 	EscreveArquivoComRespostas = 1;
 	EscreveNaTelaResultados = 1;
+
+	int StatusAux;
+	double SolucaoPrimal;
+	double SolucaoDual;
+	double GapAux;
+
 
 // Começa a escrever modelo do Cplex
 
@@ -1226,20 +1232,26 @@ int No::Cplex(char *a){
 
 	ofstream logfile2(c2);
 
+	status = cplex.getStatus();
+	primal = cplex.getObjValue();
+	dual = cplex.getBestObjValue();
+	gap =  100 * ( cplex.getObjValue() - cplex.getBestObjValue() ) / cplex.getObjValue();
+	tempo = Tempo2 - Tempo1;
+
 	if( EscreveNaTelaResultados == 1){
-		cout << "Solution status = " << cplex.getStatus() << endl;
-		cout << "Solution primal cost = " << cplex.getObjValue() << endl;
-		cout << "Solution dual cost = " << cplex.getBestObjValue() << endl ;
-		cout << "Gap = " << 100 * ( cplex.getObjValue() - cplex.getBestObjValue() ) / cplex.getObjValue() << "%" << endl ;
-		cout << "Tempo = " << Tempo2 - Tempo1 << " segundos. " << endl<< endl;
+		cout << "Solution status = " << status << endl;
+		cout << "Solution primal cost = " << primal << endl;
+		cout << "Solution dual cost = " << dual << endl ;
+		cout << "Gap = " << gap << "%" << endl ;
+		cout << "Tempo = " << tempo << " segundos. " << endl<< endl;
 	}
 
 	if( EscreveArquivoComRespostas == 1){
-		logfile2 <<  "Solution status = " << cplex.getStatus() << endl;
-		logfile2 << "Solution primal cost = " << cplex.getObjValue() << endl;
-		logfile2 << "Solution dual cost = " << cplex.getBestObjValue() << endl ;
-		logfile2 << "Gap = " << 100 * ( cplex.getObjValue() - cplex.getBestObjValue() ) / cplex.getObjValue() << "%" << endl ;
-		logfile2 << "Tempo = " << Tempo2 - Tempo1 << " segundos. " << endl << endl;
+		logfile2 <<  "Solution status = " << status << endl;
+		logfile2 << "Solution primal cost = " << primal << endl;
+		logfile2 << "Solution dual cost = " << dual << endl ;
+		logfile2 << "Gap = " << gap  << "%" << endl ;
+		logfile2 << "Tempo = " << tempo << " segundos. " << endl << endl;
 	}
 
 // inicializa variaveis para imprimir

@@ -10,9 +10,15 @@ int main(int argc, char **argv) {
 
 	list<char*>::iterator it;
 
-	ofstream escreve;
+	ofstream ArquivoExcelResposta;
 
 	int resolveu;
+
+	int Status;
+	double SolucaoPrimal;
+	double SolucaoDual;
+	double Gap;
+	double Tempo;
 
 // RecriaInstancias
 
@@ -113,6 +119,17 @@ int main(int argc, char **argv) {
 	//cout << endl << endl << " Lendo arquivo " << endl << endl << endl;
 
 
+	ArquivoExcelResposta.open("Respostas.xls");
+
+	ArquivoExcelResposta << " Instância" << '\t';
+	ArquivoExcelResposta << " Status" << '\t';
+	ArquivoExcelResposta << " Solução Primal" << '\t';
+	ArquivoExcelResposta << " Solução Dual" << '\t';
+	ArquivoExcelResposta << " Gap" << '\t';
+	ArquivoExcelResposta << " Tempo" << '\n';
+
+
+
 	No *Instancia;
 
 	while( !ListaInstancias.empty()){
@@ -123,11 +140,25 @@ int main(int argc, char **argv) {
 		cout << " Modelo <= " << a << endl;
 
 		if( Instancia->LeDados(a) == 1){
-			resolveu = Instancia->Cplex(a);
+			resolveu = Instancia->Cplex(a, Status, SolucaoPrimal, SolucaoDual, Gap, Tempo);
 			cout << endl << endl << " Resolveu = " << resolveu << endl ;
+			ArquivoExcelResposta << a  << '\t' ;
+			switch (Status){
+				case 0:	ArquivoExcelResposta <<  "Unknow" << '\t';						break;
+				case 1:	ArquivoExcelResposta <<  "Feasible" << '\t';					break;
+				case 2:	ArquivoExcelResposta <<  "Optimal" << '\t';						break;
+				case 3:	ArquivoExcelResposta <<  "Infeasible" << '\t';					break;
+				case 4:	ArquivoExcelResposta <<  "Unbounded" << '\t';					break;
+				case 5: ArquivoExcelResposta <<  "Infeasible Or Unbounded" << '\t';		break;
+				default:ArquivoExcelResposta <<  "Erro" << '\t';
+			}
+			ArquivoExcelResposta << " " <<   SolucaoPrimal << '\t' <<  " " << SolucaoDual << '\t' << " " <<   Gap << '\t' <<  " " << Tempo << '\n';
+
 		}
 		free(Instancia);
 	}
+
+	ArquivoExcelResposta.close();
 
 
 
