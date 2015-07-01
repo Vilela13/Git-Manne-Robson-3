@@ -84,7 +84,7 @@ int main(int argc, char **argv) {
 
 	free(InstanciaSaloman);
 
-
+/*
 
 
 // Resolve o problema
@@ -106,7 +106,6 @@ int main(int argc, char **argv) {
 
 	ArquivoInstancia.close();
 
-/*
 
 
  // ----------- Cria uma Instancia para testes -------------------------- //
@@ -160,7 +159,7 @@ int main(int argc, char **argv) {
 
 	ArquivoExcelResposta.close();
 
-*/
+
 
 
 
@@ -168,7 +167,7 @@ int main(int argc, char **argv) {
 	//cout << endl << " BigM -> " << BigM << endl;
 
 
-
+*/
 
 	cout << " Galo! \n";
 

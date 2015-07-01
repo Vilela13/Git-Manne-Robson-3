@@ -1182,7 +1182,7 @@ int No::Cplex(char *a, int &status, double &primal, double &dual, double &gap, d
 	if(SaidaPastaSeparada == 1){
 		cplex.setOut(logfile1);
 	}
-	cplex.setParam(IloCplex::TiLim, 3600);
+	cplex.setParam(IloCplex::TiLim, 300);
 
 	Tempo1 = cplex.getCplexTime();
 
