@@ -810,14 +810,9 @@ int No::Cplex(char *a, int &status, double &primal, double &dual, double &gap, d
 	EscreveVariaveis = 0;
 	OutPut1 = 1;
 	OutPut2 = 1;
-	SaidaPastaSeparada = 1;
+	SaidaPastaSeparada = 0;
 	EscreveArquivoComRespostas = 1;
 	EscreveNaTelaResultados = 1;
-
-	int StatusAux;
-	double SolucaoPrimal;
-	double SolucaoDual;
-	double GapAux;
 
 
 // Começa a escrever modelo do Cplex
@@ -1187,15 +1182,19 @@ int No::Cplex(char *a, int &status, double &primal, double &dual, double &gap, d
 	if(SaidaPastaSeparada == 1){
 		cplex.setOut(logfile1);
 	}
-	cplex.setParam(IloCplex::TiLim, 120);
+	cplex.setParam(IloCplex::TiLim, 3600);
 
 	Tempo1 = cplex.getCplexTime();
+
+	cout << endl << " setou tempo" << endl << endl;
 
 // Resolve o modelo.
 	if (!cplex.solve()) {
 		cerr << "Failed to optimize LP." << endl;
 		throw(-1);
 	}
+
+	cout << endl << " rodou " << endl << endl;
 
 	Tempo2 = cplex.getCplexTime();
 

@@ -3,6 +3,7 @@
 Dados das plantas 
    NoPlanta = 4 Horario [ 7 - 18 ]
    NoPlanta = 15 Horario [ 7 - 18 ]
+   NoPlanta = 22 Horario [ 7 - 18 ]
 Dados dos Clientes 
   NoCliente = 1 	Demanda em carretas ( 3 ) Horario [ 8 - 8.5 ]
   NoCliente = 2 	Demanda em carretas ( 5 ) Horario [ 8.5 - 10 ]
@@ -21,3 +22,8 @@ Dados dos Clientes
   NoCliente = 17 	Demanda em carretas ( 1 ) Horario [ 9 - 10 ]
   NoCliente = 18 	Demanda em carretas ( 4 ) Horario [ 8 - 8.5 ]
   NoCliente = 19 	Demanda em carretas ( 3 ) Horario [ 10 - 11 ]
+  NoCliente = 20 	Demanda em carretas ( 1 ) Horario [ 8 - 9 ]
+  NoCliente = 21 	Demanda em carretas ( 4 ) Horario [ 8.5 - 10 ]
+  NoCliente = 23 	Demanda em carretas ( 3 ) Horario [ 8 - 9 ]
+  NoCliente = 24 	Demanda em carretas ( 4 ) Horario [ 9 - 11 ]
+  NoCliente = 25 	Demanda em carretas ( 4 ) Horario [ 10 - 10.5 ]

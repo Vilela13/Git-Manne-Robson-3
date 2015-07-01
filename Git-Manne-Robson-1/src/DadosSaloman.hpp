@@ -45,6 +45,36 @@ public:
 	int NumeroCaminhoes;
 	int Velocidade;
 
+// Declara variaveis
+
+	char *b;
+	char *aux1;
+	string CaminhoArquivo1;
+	string CaminhoArquivo2;
+	string Nome;
+	string NomeAux;
+	string Versao;
+	string Dados;
+	string TXT;
+	int NumeroVERSAO;
+
+	int CaminhaoAux;
+
+	vector < int > CaminhoesPlanta;
+	vector < int > NumeroCarretas;		// guarda o numero de clientes
+
+	double TempoDeDescarga;
+	double TemproEntreEntregas;
+	double TempoPlanta;
+	double TempoEntreEntregas;
+
+	vector < double > HoraInicioPlanta;
+	vector < double > HoraFinalPlanta;
+
+	vector < double > HoraInicioCliente;
+	vector < double > HoraFinalCliente;
+
+
 // Funções
 
 	void CarregarNumeroNosCoordenadas( char*);
@@ -235,8 +265,11 @@ void DadosSaloman::EscreverComandosR(char* a, char TipoArquivoSaida){
 
 		ComandosR << "Dados <- data.frame(nomes = c(" ;
 		ComandosR << "\"N" << "0" << "\"";
-		for( int i = 1; i <= NumeroNosDadosSaloman; i++){
-			ComandosR << ","<< "\"N" <<  i << "\"";
+		for( int c = 1; c <= NumeroClientes; c++){
+			ComandosR << "," << "\"C" <<  c << "(" <<  NumeroCarretas[c] << ")"<<  "\"";
+		}
+		for( int p = 1; p <= NumeroPlantas; p++){
+			ComandosR << ","<< "\"P" <<  p <<  "\"";
 		}
 		ComandosR << ")" << endl;
 
@@ -244,37 +277,41 @@ void DadosSaloman::EscreverComandosR(char* a, char TipoArquivoSaida){
 
 		ComandosR << ", x <- c(" ;
 		ComandosR << Coordenadas[0][0] ;
-		for( int i = 1; i <= NumeroNosDadosSaloman; i++){
-			ComandosR << ","<< Coordenadas[i][0] ;
+		for( int c = 1; c <= NumeroClientes; c++){
+			ComandosR << ","<<  Coordenadas[	NoCliente[c] ][0] ;
+		}
+		for( int p = 1; p <= NumeroPlantas; p++){
+			ComandosR << ","<<  Coordenadas[ NoPlanta[p] ][0] ;
 		}
 		ComandosR << ")" << endl;
 
 		ComandosR << ", y <- c(" ;
 		ComandosR << Coordenadas[0][1] ;
-		for( int i = 1; i <= NumeroNosDadosSaloman; i++){
-			ComandosR << ","<< Coordenadas[i][1] ;
+		for( int c = 1; c <= NumeroClientes; c++){
+			ComandosR << ","<<  Coordenadas[	NoCliente[c] ][1] ;
+		}
+		for( int p = 1; p <= NumeroPlantas; p++){
+			ComandosR << ","<<  Coordenadas[ NoPlanta[p] ][1] ;
 		}
 		ComandosR << ")" << endl;
 
 		ComandosR << ", tipo <- c(" ;
-		ComandosR << "4" ;
-		for( int i = 1; i <= NumeroNosDadosSaloman; i++){
-			if( i == 4 || i == 15 || i == 22){
+		ComandosR << "3" ;
+		for( int c = 1; c <= NumeroClientes; c++){
 				ComandosR << ",6" ;
-			}else{
+		}
+		for( int p = 1; p <= NumeroPlantas; p++){
 				ComandosR << ",4" ;
-			}
 		}
 		ComandosR << ")" << endl;
 
 		ComandosR << ", tamanho <- c(" ;
 		ComandosR << "1" ;
-		for( int i = 1; i <= NumeroNosDadosSaloman; i++){
-			if( i == 4 || i == 15 || i == 22){
-				ComandosR << ",2" ;
-			}else{
+		for( int c = 1; c <= NumeroClientes; c++){
 				ComandosR << ",1" ;
-			}
+		}
+		for( int p = 1; p <= NumeroPlantas; p++){
+			ComandosR << ",2" ;
 		}
 		ComandosR << ")" << endl << ")"<< endl;
 
@@ -421,48 +458,13 @@ void DadosSaloman::EscreverComandosExcel(char* a){
 
 void DadosSaloman::CriarInstanciaSaloman(char* a){
 
-// Declara variaveis
 
-	char *b;
-	char *aux1;
-	string CaminhoArquivo1;
-	string CaminhoArquivo2;
-	string Nome;
-	string NomeAux;
-	string Versao;
-	string Dados;
-	string TXT;
-	int NumeroVERSAO;
 	NumeroVERSAO = 49;
+	//NumeroVERSAO = 50;
 
-	int NumeroPlantas;
-	vector < int > NoPlanta;
-	int NumeroClientes;
-	vector < int > NoCliente;
-	int NumeroCaminhoes;
-	int Velocidade;
-
-	int CaminhaoAux;
-
-	vector < int > CaminhoesPlanta;
-	vector < int > NumeroCarretas;		// guarda o numero de clientes
-
-	double TempoDeDescarga;
 	TempoDeDescarga = 0.1666667; // equivaelente a 10 minutos
-
-	double TemproEntreEntregas;
 	TemproEntreEntregas = 0.1666667; // equivaelente a 10 minutos
-
-	double TempoPlanta = 0.083333333; // equivalente a 5 minutos(4 min = 0.066667 ; 3min = 0.05 e 2min = 0.0333333)
-
-	double TempoEntreEntregas;
-
-	vector < double > HoraInicioPlanta;
-	vector < double > HoraFinalPlanta;
-
-	vector < double > HoraInicioCliente;
-	vector < double > HoraFinalCliente;
-
+	TempoPlanta = 0.083333333; // equivalente a 5 minutos(4 min = 0.066667 ; 3min = 0.05 e 2min = 0.0333333)
 
 	//binomial_distribution<int> distribution(5,0.5); 		// gera numeros segundo a distribuição binomial
 
@@ -574,7 +576,7 @@ void DadosSaloman::CriarInstanciaSaloman(char* a){
 
 //Inicializa Parametros
 
-		NumeroPlantas 	= 2;
+		NumeroPlantas 	= 3;
 
 		//NumeroPlantas 	= 3;
 		NoPlanta.resize(NumeroPlantas + 1);
@@ -583,12 +585,13 @@ void DadosSaloman::CriarInstanciaSaloman(char* a){
 
 		NoPlanta[1] = 4;	HoraInicioPlanta[1] = 7; 	HoraFinalPlanta[1] = 18;
 		NoPlanta[2] = 15;	HoraInicioPlanta[2] = 7; 	HoraFinalPlanta[2] = 18;
-		//NoPlanta[3] = 22;	HoraInicioPlanta[3] = 7; 	HoraFinalPlanta[3] = 18;
+		NoPlanta[3] = 22;	HoraInicioPlanta[3] = 7; 	HoraFinalPlanta[3] = 18;
 
-		NumeroClientes 	= 17;
+		NumeroClientes 	= 22;
 		NoCliente.resize(	NumeroClientes	+	1);
 		HoraInicioCliente.resize(	NumeroClientes	+	1);
 		HoraFinalCliente.resize( 	NumeroClientes	+	1);
+
 
 //dados com o gerador => NumeroVERSAO = 49;
 
@@ -612,19 +615,51 @@ void DadosSaloman::CriarInstanciaSaloman(char* a){
 		NoCliente[16] = 18;		HoraInicioCliente[16] = 8;	 HoraFinalCliente[16] = 8.5;		//4	(18)
 		NoCliente[17] = 19;		HoraInicioCliente[17] = 10;	 HoraFinalCliente[17] = 11;		//3	(19)
 
-		//NoCliente[18] = 20;		HoraInicioCliente[18] = 8;	 HoraFinalCliente[18] = 9;		//1	(20)
-		//NoCliente[19] = 21;		HoraInicioCliente[19] = 8.5; HoraFinalCliente[19] = 10;		//4	(21)
-		//NoCliente[20] = 23;		HoraInicioCliente[20] = 8;	 HoraFinalCliente[20] = 9;		//3	(23)
-		//NoCliente[21] = 24;		HoraInicioCliente[21] = 9;	 HoraFinalCliente[21] = 11;		//4	(24)
-		//NoCliente[22] = 25;		HoraInicioCliente[22] = 10;	 HoraFinalCliente[22] = 10.5;	//4	(25);
+		NoCliente[18] = 20;		HoraInicioCliente[18] = 8;	 HoraFinalCliente[18] = 9;		//1	(20)
+		NoCliente[19] = 21;		HoraInicioCliente[19] = 8.5; HoraFinalCliente[19] = 10;		//4	(21)
+		NoCliente[20] = 23;		HoraInicioCliente[20] = 8;	 HoraFinalCliente[20] = 9;		//3	(23)
+		NoCliente[21] = 24;		HoraInicioCliente[21] = 9;	 HoraFinalCliente[21] = 11;		//4	(24)
+		NoCliente[22] = 25;		HoraInicioCliente[22] = 10;	 HoraFinalCliente[22] = 10.5;	//4	(25);
 
-		NumeroCaminhoes = 20;
+		/*
+
+		//dados com o gerador => NumeroVERSAO = 50;
+
+
+				NoCliente[1] = 1;		HoraInicioCliente[1] = 8;	 HoraFinalCliente[1] = 8.5;		//3 (1)
+				NoCliente[2] = 2;		HoraInicioCliente[2] = 8.5;	 HoraFinalCliente[2] = 10;		//1 (2)
+				NoCliente[3] = 3;		HoraInicioCliente[3] = 8;	 HoraFinalCliente[3] = 8.5;		//4	(3)
+				NoCliente[4] = 5;		HoraInicioCliente[4] = 10;	 HoraFinalCliente[4] = 11;		//1	(5)
+				NoCliente[5] = 6;		HoraInicioCliente[5] = 9;	 HoraFinalCliente[5] = 11;		//4	(6)
+				NoCliente[6] = 7;		HoraInicioCliente[6] = 10;	 HoraFinalCliente[6] = 11;		//4	(7)
+				NoCliente[7] = 8;		HoraInicioCliente[7] = 10;	 HoraFinalCliente[7] = 10.5;	//2	(8)
+				NoCliente[8] = 9;		HoraInicioCliente[8] = 11;	 HoraFinalCliente[8] = 12;		//4	(9)
+				NoCliente[9] = 10;		HoraInicioCliente[9] = 9;	 HoraFinalCliente[9] = 12;		//5	(10)
+				NoCliente[10] = 11;		HoraInicioCliente[10] = 10;	 HoraFinalCliente[10] = 12;		//3	(11)
+
+				NoCliente[11] = 12;		HoraInicioCliente[11] = 8;	 HoraFinalCliente[11] = 8.5;	//3	(12)
+				NoCliente[12] = 13;		HoraInicioCliente[12] = 8.5; HoraFinalCliente[12] = 9;		//2	(13)
+				NoCliente[13] = 14;		HoraInicioCliente[13] = 9;	 HoraFinalCliente[13] = 10;		//5	(14)
+				NoCliente[14] = 16;		HoraInicioCliente[14] = 8;	 HoraFinalCliente[14] = 8.5;		//1	(16)
+				NoCliente[15] = 17;		HoraInicioCliente[15] = 9;	 HoraFinalCliente[15] = 10;		//1	(17)
+				NoCliente[16] = 18;		HoraInicioCliente[16] = 8;	 HoraFinalCliente[16] = 8.5;		//4	(18)
+				NoCliente[17] = 19;		HoraInicioCliente[17] = 10;	 HoraFinalCliente[17] = 11;		//3	(19)
+
+				NoCliente[18] = 20;		HoraInicioCliente[18] = 8;	 HoraFinalCliente[18] = 9;		//1	(20)
+				NoCliente[19] = 21;		HoraInicioCliente[19] = 8.5; HoraFinalCliente[19] = 10;		//4	(21)
+				NoCliente[20] = 23;		HoraInicioCliente[20] = 8;	 HoraFinalCliente[20] = 9;		//3	(23)
+				NoCliente[21] = 24;		HoraInicioCliente[21] = 9;	 HoraFinalCliente[21] = 11;		//4	(24)
+				NoCliente[22] = 25;		HoraInicioCliente[22] = 10;	 HoraFinalCliente[22] = 10.5;	//4	(25);
+
+*/
+
+		NumeroCaminhoes = 30;
 
 		//NumeroCaminhoes = 60;
 		CaminhoesPlanta.resize(NumeroPlantas + 1);
 		CaminhoesPlanta[1] = 10;
 		CaminhoesPlanta[2] = 10;
-		//CaminhoesPlanta[3] = 10;
+		CaminhoesPlanta[3] = 10;
 
 		Velocidade 		= 30;
 

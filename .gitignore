@@ -29,3 +29,11 @@
 .metadata/
 #ignora arquivos Pasta
 teste/
+#ignora arquivos do comando R
+Git-Manne-Robson-1/ComR/*.*
+#ignora arquivos do comando Excel
+Git-Manne-Robson-1/ComE/*.*
+#ignora arquivos dos dados lidos na apsta Dat
+Git-Manne-Robson-1/Dat/*.*
+#ignora arquivos dos na pasta Imagem
+Git-Manne-Robson-1/Imagens/*.*
