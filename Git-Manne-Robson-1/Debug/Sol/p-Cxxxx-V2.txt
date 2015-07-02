@@ -1,0 +1,74 @@
+Solution status = 1
+Solution primal cost = 102.013
+Solution dual cost = 98.569
+Gap = 3.37631%
+Tempo = 300.015 segundos. 
+
+ Veiculo 1 Sai as 7
+	 Entrega[Construcao->1][Job->1] as 8
+	 Entrega[Construcao->6][Job->3] as 8.44428
+	 Entrega[Construcao->10][Job->3] as 10.3333
+ Veiculo 2 Sai as 7
+	 Entrega[Construcao->1][Job->2] as 8.16667
+	 Entrega[Construcao->6][Job->4] as 8.61095
+	 Entrega[Construcao->9][Job->2] as 9.66667
+ Veiculo 3 Sai as 7
+	 Entrega[Construcao->6][Job->2] as 8.16667
+	 Entrega[Construcao->9][Job->1] as 9.5
+ Veiculo 4 Sai as 7
+	 Entrega[Construcao->3][Job->2] as 8.16667
+	 Entrega[Construcao->9][Job->5] as 10.1667
+ Veiculo 5 Sai as 7
+	 Entrega[Construcao->1][Job->3] as 8.33333
+	 Entrega[Construcao->8][Job->1] as 9
+	 Entrega[Construcao->9][Job->3] as 9.83333
+ Veiculo 6 Sai as 7
+	 Entrega[Construcao->2][Job->1] as 8
+	 Entrega[Construcao->5][Job->3] as 8.83333
+	 Entrega[Construcao->8][Job->3] as 9.33333
+ Veiculo 7 Sai as 7
+	 Entrega[Construcao->3][Job->1] as 8
+	 Entrega[Construcao->5][Job->1] as 8.5
+	 Entrega[Construcao->7][Job->1] as 9
+	 Entrega[Construcao->10][Job->1] as 10
+ Veiculo 8 Sai as 7
+	 Entrega[Construcao->3][Job->4] as 8.5
+	 Entrega[Construcao->4][Job->1] as 8
+	 Entrega[Construcao->8][Job->4] as 9.5
+ Veiculo 9 Sai as 7
+	 Entrega[Construcao->3][Job->3] as 8.33333
+	 Entrega[Construcao->5][Job->4] as 9
+	 Entrega[Construcao->10][Job->2] as 10.1667
+ Veiculo 10 Sai as 7
+	 Entrega[Construcao->5][Job->2] as 8.66667
+	 Entrega[Construcao->6][Job->1] as 8
+	 Entrega[Construcao->8][Job->2] as 9.16667
+	 Entrega[Construcao->9][Job->4] as 10
+
+
+           Tempo de entrega em cada cliente         
+ Cliente 1	[ 8	<=		8[v1]	8.16667[v2]	8.33333[v5]	<=	8.5]
+ Cliente 2	[ 8	<=		8[v6]	<=	9]
+ Cliente 3	[ 8	<=		8[v7]	8.16667[v4]	8.33333[v9]	8.5[v8]	<=	9]
+ Cliente 4	[ 8	<=		8[v8]	<=	9.5]
+ Cliente 5	[ 8.5	<=		8.5[v7]	8.66667[v10]	8.83333[v6]	9[v9]	<=	10]
+ Cliente 6	[ 8	<=		8[v10]	8.16667[v3]	8.44428[v1]	8.61095[v2]	<=	9]
+ Cliente 7	[ 9	<=		9[v7]	<=	10.5]
+ Cliente 8	[ 9	<=		9[v5]	9.16667[v10]	9.33333[v6]	9.5[v8]	<=	11]
+ Cliente 9	[ 9.5	<=		9.5[v3]	9.66667[v2]	9.83333[v5]	10[v10]	10.1667[v4]	<=	10.5]
+ Cliente 10	[ 10	<=		10[v7]	10.1667[v9]	10.3333[v1]	<=	11]
+
+
+           Veiculos usados         
+Planta 1
+  Veiculo 1 	[clientes ->	1	6	10	]
+  Veiculo 2 	[clientes ->	1	6	9	]
+  Veiculo 3 	[clientes ->	6	9	]
+  Veiculo 4 	[clientes ->	3	9	]
+  Veiculo 5 	[clientes ->	1	8	9	]
+  Veiculo 6 	[clientes ->	2	5	8	]
+  Veiculo 7 	[clientes ->	3	5	7	10	]
+  Veiculo 8 	[clientes ->	3	4	8	]
+  Veiculo 9 	[clientes ->	3	5	10	]
+  Veiculo 10 	[clientes ->	5	6	8	9	]
+
