@@ -571,7 +571,7 @@ void DadosSaloman::CriarInstanciaSaloman(char* a){
 
 //Inicializa Parametros
 
-		NumeroPlantas 	= 1;
+		NumeroPlantas 	= 2;
 
 		//NumeroPlantas 	= 3;
 		NoPlanta.resize(NumeroPlantas + 1);
@@ -579,10 +579,10 @@ void DadosSaloman::CriarInstanciaSaloman(char* a){
 		HoraFinalPlanta.resize(NumeroPlantas + 1);
 
 		NoPlanta[1] = 4;	HoraInicioPlanta[1] = 7; 	HoraFinalPlanta[1] = 18;
-		//NoPlanta[2] = 15;	HoraInicioPlanta[2] = 7; 	HoraFinalPlanta[2] = 18;
+		NoPlanta[2] = 15;	HoraInicioPlanta[2] = 7; 	HoraFinalPlanta[2] = 18;
 		//NoPlanta[3] = 22;	HoraInicioPlanta[3] = 7; 	HoraFinalPlanta[3] = 18;
 
-		NumeroClientes 	= 10;
+		NumeroClientes 	= 17;
 		NoCliente.resize(	NumeroClientes	+	1);
 		HoraInicioCliente.resize(	NumeroClientes	+	1);
 		HoraFinalCliente.resize( 	NumeroClientes	+	1);
@@ -632,13 +632,13 @@ void DadosSaloman::CriarInstanciaSaloman(char* a){
 				NoCliente[9] = 10;		HoraInicioCliente[9] = 9.5;	 HoraFinalCliente[9] = 10.5;	//5	(10)
 				NoCliente[10] = 11;		HoraInicioCliente[10] = 10;	 HoraFinalCliente[10] = 11;		//3	(11)
 
-				//NoCliente[11] = 12;		HoraInicioCliente[11] = 8;	 HoraFinalCliente[11] = 8.5;	//4	(12)
-				//NoCliente[12] = 13;		HoraInicioCliente[12] = 8.5; HoraFinalCliente[12] = 9;		//4	(13)
-				//NoCliente[13] = 14;		HoraInicioCliente[13] = 9;	 HoraFinalCliente[13] = 10;		//1	(14)
-				//NoCliente[14] = 16;		HoraInicioCliente[14] = 8;	 HoraFinalCliente[14] = 8.5;	//4	(16)
-				//NoCliente[15] = 17;		HoraInicioCliente[15] = 9;	 HoraFinalCliente[15] = 10;		//5	(17)
-				//NoCliente[16] = 18;		HoraInicioCliente[16] = 8;	 HoraFinalCliente[16] = 8.5;	//4	(18)
-				//NoCliente[17] = 19;		HoraInicioCliente[17] = 10;	 HoraFinalCliente[17] = 11;		//4	(19)
+				NoCliente[11] = 12;		HoraInicioCliente[11] = 8;	 HoraFinalCliente[11] = 8.5;	//4	(12)
+				NoCliente[12] = 13;		HoraInicioCliente[12] = 8.5; HoraFinalCliente[12] = 9;		//4	(13)
+				NoCliente[13] = 14;		HoraInicioCliente[13] = 9;	 HoraFinalCliente[13] = 10;		//1	(14)
+				NoCliente[14] = 16;		HoraInicioCliente[14] = 8;	 HoraFinalCliente[14] = 8.5;	//4	(16)
+				NoCliente[15] = 17;		HoraInicioCliente[15] = 9;	 HoraFinalCliente[15] = 10;		//5	(17)
+				NoCliente[16] = 18;		HoraInicioCliente[16] = 8;	 HoraFinalCliente[16] = 8.5;	//4	(18)
+				NoCliente[17] = 19;		HoraInicioCliente[17] = 10;	 HoraFinalCliente[17] = 11;		//4	(19)
 
 				//NoCliente[18] = 20;		HoraInicioCliente[18] = 8;	 HoraFinalCliente[18] = 9;		//5	(20)
 				//NoCliente[19] = 21;		HoraInicioCliente[19] = 8.5; HoraFinalCliente[19] = 10;		//3	(21)
@@ -647,12 +647,12 @@ void DadosSaloman::CriarInstanciaSaloman(char* a){
 				//NoCliente[22] = 25;		HoraInicioCliente[22] = 10;	 HoraFinalCliente[22] = 10.5;	//2	(25)
 
 
-		NumeroCaminhoes = 10;
+		NumeroCaminhoes = 20;
 
 		//NumeroCaminhoes = 60;
 		CaminhoesPlanta.resize(NumeroPlantas + 1);
 		CaminhoesPlanta[1] = 10;
-		//CaminhoesPlanta[2] = 10;
+		CaminhoesPlanta[2] = 10;
 		//CaminhoesPlanta[3] = 10;
 
 		Velocidade 		= 30;
