@@ -84,7 +84,7 @@ int main(int argc, char **argv) {
 
 	free(InstanciaSaloman);
 
-/*
+
 
 
 // Resolve o problema
@@ -167,7 +167,7 @@ int main(int argc, char **argv) {
 	//cout << endl << " BigM -> " << BigM << endl;
 
 
-*/
+
 
 	cout << " Galo! \n";
 
