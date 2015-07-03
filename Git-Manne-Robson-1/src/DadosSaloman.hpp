@@ -636,9 +636,9 @@ void DadosSaloman::CriarInstanciaSaloman(char* a){
 				NoCliente[12] = 13;		HoraInicioCliente[12] = 8; 	 HoraFinalCliente[12] = 9;		//4	(13)
 				NoCliente[13] = 14;		HoraInicioCliente[13] = 8.5; HoraFinalCliente[13] = 9;		//1	(14)
 				NoCliente[14] = 16;		HoraInicioCliente[14] = 8;	 HoraFinalCliente[14] = 10;	//4	(16)
-				NoCliente[15] = 17;		HoraInicioCliente[15] = 9;	 HoraFinalCliente[15] = 10;		//5	(17)
+				NoCliente[15] = 17;		HoraInicioCliente[15] = 9;	 HoraFinalCliente[15] = 10.5;		//5	(17)
 				NoCliente[16] = 18;		HoraInicioCliente[16] = 8;	 HoraFinalCliente[16] = 11;	//4	(18)
-				NoCliente[17] = 19;		HoraInicioCliente[17] = 9;	 HoraFinalCliente[17] = 11;		//4	(19)
+				NoCliente[17] = 19;		HoraInicioCliente[17] = 9;	 HoraFinalCliente[17] = 11.5;		//4	(19)
 
 				//NoCliente[18] = 20;		HoraInicioCliente[18] = 8;	 HoraFinalCliente[18] = 9;		//5	(20)
 				//NoCliente[19] = 21;		HoraInicioCliente[19] = 8.5; HoraFinalCliente[19] = 10;		//3	(21)
