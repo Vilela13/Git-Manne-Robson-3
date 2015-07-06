@@ -20,6 +20,9 @@ int main(int argc, char **argv) {
 	double Gap;
 	double Tempo;
 
+
+/*
+
 // RecriaInstancias
 
 // -------------------------- Le arquivo com as instancias de Solomon e as guarda em uma lista ----------------------- //
@@ -31,6 +34,7 @@ int main(int argc, char **argv) {
 
 
 		ArquivoInstanciaSaloman >> Nome;
+		cout << " \n   Arqmazena nome de instancias \n " << endl;
 		while( Nome != "EOF"){
 			a = new char[Nome.size()+1];
 			a[Nome.size()]=0;
@@ -84,7 +88,7 @@ int main(int argc, char **argv) {
 
 	free(InstanciaSaloman);
 
-
+*/
 
 
 // Resolve o problema
@@ -140,7 +144,7 @@ int main(int argc, char **argv) {
 
 		if( Instancia->LeDados(a) == 1){
 			resolveu = Instancia->Cplex(a, Status, SolucaoPrimal, SolucaoDual, Gap, Tempo);
-			cout << endl << endl << " Resolveu = " << resolveu << endl ;
+			//cout << endl << endl << " Resolveu = " << resolveu << endl ;
 			ArquivoExcelResposta << a  << '\t' ;
 			switch (Status){
 				case 0:	ArquivoExcelResposta <<  "Unknow" << '\t';						break;
@@ -169,7 +173,7 @@ int main(int argc, char **argv) {
 
 
 
-	cout << " Galo! \n";
+	cout << "/n /n Galo Doido! \n /n";
 
 
 }

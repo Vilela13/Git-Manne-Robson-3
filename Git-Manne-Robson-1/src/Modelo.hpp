@@ -810,9 +810,9 @@ int No::Cplex(char *a, int &status, double &primal, double &dual, double &gap, d
 	EscreveVariaveis = 0;
 	OutPut1 = 1;
 	OutPut2 = 1;
-	SaidaPastaSeparada = 0;
+	SaidaPastaSeparada = 1;
 	EscreveArquivoComRespostas = 1;
-	EscreveNaTelaResultados = 1;
+	EscreveNaTelaResultados = 0;
 
 
 // Começa a escrever modelo do Cplex
@@ -1166,7 +1166,9 @@ int No::Cplex(char *a, int &status, double &primal, double &dual, double &gap, d
 			cout << " Tem diretorio \"Out\" !!  " << endl;
 		}
 	}else{
-		cout << " Tem diretorio \"Out\" !!  " << endl;
+		if( EscreveNaTelaResultados == 1){
+			cout << " Tem diretorio \"Out\" !!  " << endl;
+		}
 	}
 
 	Nome1 = "./Out/";
@@ -1175,18 +1177,18 @@ int No::Cplex(char *a, int &status, double &primal, double &dual, double &gap, d
 	memcpy(c1,Nome1.c_str(),Nome1.size());
 	strcat(c1,a);
 
-	cout << endl << endl << " arquivo a gravar a saida " << c1 << endl << endl;
+	//cout << endl << endl << " arquivo a gravar a saida " << c1 << endl << endl;
 
 	ofstream logfile1(c1);
 
 	if(SaidaPastaSeparada == 1){
 		cplex.setOut(logfile1);
 	}
-	cplex.setParam(IloCplex::TiLim, 600);
+	cplex.setParam(IloCplex::TiLim, 3600);
 
 	Tempo1 = cplex.getCplexTime();
 
-	cout << endl << " setou tempo" << endl << endl;
+	//cout << endl << " setou tempo" << endl << endl;
 
 // Resolve o modelo.
 	if (!cplex.solve()) {
@@ -1194,7 +1196,7 @@ int No::Cplex(char *a, int &status, double &primal, double &dual, double &gap, d
 		throw(-1);
 	}
 
-	cout << endl << " rodou " << endl << endl;
+	//cout << endl << " rodou " << endl << endl;
 
 	Tempo2 = cplex.getCplexTime();
 
@@ -1218,7 +1220,9 @@ int No::Cplex(char *a, int &status, double &primal, double &dual, double &gap, d
 			cout << " Tem diretorio \"Sol\" !!  " << endl;
 		}
 	}else{
-		cout << " Tem diretorio \"Sol\" !!  " << endl;
+		if( EscreveNaTelaResultados == 1){
+			cout << " Tem diretorio \"Sol\" !!  " << endl;
+		}
 	}
 
 	Nome2 = "./Sol/";
