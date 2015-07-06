@@ -1,0 +1,15 @@
+./InstS/p-Cxxxx-V3.txt
+ Gerador dos numeros aleatorios das demandas ( 51 ) 
+Dados das plantas 
+   NoPlanta = 4 Horario [ 7 - 18 ]
+Dados dos Clientes 
+  NoCliente = 1 	Demanda em carretas ( 4 ) Horario [ 8 - 8.5 ]
+  NoCliente = 2 	Demanda em carretas ( 3 ) Horario [ 8 - 9 ]
+  NoCliente = 3 	Demanda em carretas ( 3 ) Horario [ 8 - 9 ]
+  NoCliente = 5 	Demanda em carretas ( 4 ) Horario [ 9 - 9.5 ]
+  NoCliente = 6 	Demanda em carretas ( 4 ) Horario [ 9 - 10 ]
+  NoCliente = 7 	Demanda em carretas ( 5 ) Horario [ 9.5 - 11 ]
+  NoCliente = 8 	Demanda em carretas ( 4 ) Horario [ 10 - 11 ]
+  NoCliente = 9 	Demanda em carretas ( 3 ) Horario [ 10 - 11.5 ]
+  NoCliente = 10 	Demanda em carretas ( 2 ) Horario [ 11 - 11.5 ]
+  NoCliente = 11 	Demanda em carretas ( 5 ) Horario [ 10 - 11.5 ]
