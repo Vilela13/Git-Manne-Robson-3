@@ -1231,7 +1231,7 @@ int No::Cplex(char *a, int &status, double &primal, double &dual, double &gap, d
 	memcpy(c2,Nome2.c_str(),Nome2.size());
 	strcat(c2,a);
 
-	cout << endl << endl << " arquivo a gravar a ssolucao " << c2 << endl << endl;
+	//cout << endl << endl << " arquivo a gravar a ssolucao " << c2 << endl << endl;
 
 	ofstream logfile2(c2);
 
