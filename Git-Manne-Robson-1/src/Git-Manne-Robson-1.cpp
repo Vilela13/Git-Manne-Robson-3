@@ -23,7 +23,7 @@ int main(int argc, char **argv) {
 		double Tempo;
 
 
-	/*
+
 
 	// RecriaInstancias
 
@@ -90,7 +90,7 @@ int main(int argc, char **argv) {
 
 		free(InstanciaSaloman);
 
-	*/
+
 
 
 	// Resolve o problema
@@ -128,12 +128,21 @@ int main(int argc, char **argv) {
 
 			//cout << endl << endl << " Lendo arquivo " << endl << endl << endl;
 			
-			char* Saida;
-			Saida = "Res-";
+			char Saida[200];
+			int TamanhoEntrda;
+			strcpy (Saida,"Res-");				// coloca Res- no char*
+			TamanhoEntrda = strcspn (Instancias,"\n");	// Ve o tamanho do char* passado na entrada
+			if(TamanhoEntrda > 12){				// Fixa o tamanho minimo da string
+				TamanhoEntrda = 12;
+			}
+			strncat (Saida, Instancias, TamanhoEntrda);	// Cria o nome do arquivo de saida
+			strcat (Saida,".xls");
+			
+			//cout << " Saida = > "<< Saida << "   Tamanho entrada = " << TamanhoEntrda << endl;
 
 			
 
-			ArquivoExcelResposta.open("Resposta.xls");
+			ArquivoExcelResposta.open(Saida);
 
 			ArquivoExcelResposta << " Instância" << '\t';
 			ArquivoExcelResposta << " Status" << '\t';
@@ -155,7 +164,7 @@ int main(int argc, char **argv) {
 
 				if( Instancia->LeDados(a) == 1){
 					resolveu = Instancia->Cplex(a, Status, SolucaoPrimal, SolucaoDual, Gap, Tempo);
-					//cout << endl << endl << " Resolveu = " << resolveu << endl ;
+					cout << endl << endl << " Resolveu = " << resolveu << endl ;
 					ArquivoExcelResposta << a  << '\t' ;
 					switch (Status){
 						case 0:	ArquivoExcelResposta <<  "Unknow" << '\t';						break;

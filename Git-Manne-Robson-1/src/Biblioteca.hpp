@@ -24,6 +24,7 @@
 #include <stdio.h>      // Biblioteca padão de C, principalmente a operações de entrada e saída
 #include <stdlib.h>     // Biblioteca padão de C, possui funções envolvendo alocação de memória, controle de processos, conversões e outras.
 #include <string>
+#include <string.h>
 
 #include <time.h>
 

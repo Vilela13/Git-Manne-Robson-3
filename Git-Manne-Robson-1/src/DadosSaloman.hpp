@@ -572,7 +572,7 @@ void DadosSaloman::CriarInstanciaSaloman(char* a){
 
 //Inicializa Parametros
 
-		NumeroPlantas 	= 1;
+		NumeroPlantas 	= 3;
 
 		//NumeroPlantas 	= 3;
 		NoPlanta.resize(NumeroPlantas + 1);
@@ -580,10 +580,10 @@ void DadosSaloman::CriarInstanciaSaloman(char* a){
 		HoraFinalPlanta.resize(NumeroPlantas + 1);
 
 		NoPlanta[1] = 4;	HoraInicioPlanta[1] = 7; 	HoraFinalPlanta[1] = 18;
-		//NoPlanta[2] = 15;	HoraInicioPlanta[2] = 7; 	HoraFinalPlanta[2] = 18;
-		//NoPlanta[3] = 22;	HoraInicioPlanta[3] = 7; 	HoraFinalPlanta[3] = 18;
+		NoPlanta[2] = 15;	HoraInicioPlanta[2] = 7; 	HoraFinalPlanta[2] = 18;
+		NoPlanta[3] = 22;	HoraInicioPlanta[3] = 7; 	HoraFinalPlanta[3] = 18;
 
-		NumeroClientes 	= 10;
+		NumeroClientes 	= 22;
 		NoCliente.resize(	NumeroClientes	+	1);
 		HoraInicioCliente.resize(	NumeroClientes	+	1);
 		HoraFinalCliente.resize( 	NumeroClientes	+	1);
@@ -661,28 +661,28 @@ void DadosSaloman::CriarInstanciaSaloman(char* a){
 				NoCliente[9] = 10;		HoraInicioCliente[9] = 11;	 HoraFinalCliente[9] = 11.5;		//2	(10)
 				NoCliente[10] = 11;		HoraInicioCliente[10] = 10;	 HoraFinalCliente[10] = 11.5;		//5	(11)
 
-				//NoCliente[11] = 12;		HoraInicioCliente[11] = 8;	 HoraFinalCliente[11] = 9;		//5	(12)
-				//NoCliente[12] = 13;		HoraInicioCliente[12] = 8; 	 HoraFinalCliente[12] = 9;		//4	(13)
-				//NoCliente[13] = 14;		HoraInicioCliente[13] = 8.5; 	 HoraFinalCliente[13] = 10;		//5	(14)
-				//NoCliente[14] = 16;		HoraInicioCliente[14] = 9;	 HoraFinalCliente[14] = 10.5;		//2	(16)
-				//NoCliente[15] = 17;		HoraInicioCliente[15] = 9;	 HoraFinalCliente[15] = 11;		//4	(17)
-				//NoCliente[16] = 18;		HoraInicioCliente[16] = 10;	 HoraFinalCliente[16] = 12;		//3	(18)
-				//NoCliente[17] = 19;		HoraInicioCliente[17] = 11;	 HoraFinalCliente[17] = 12.5;		//4	(19)
+				NoCliente[11] = 12;		HoraInicioCliente[11] = 8;	 HoraFinalCliente[11] = 9;		//5	(12)
+				NoCliente[12] = 13;		HoraInicioCliente[12] = 8; 	 HoraFinalCliente[12] = 9;		//4	(13)
+				NoCliente[13] = 14;		HoraInicioCliente[13] = 8.5; 	 HoraFinalCliente[13] = 10;		//5	(14)
+				NoCliente[14] = 16;		HoraInicioCliente[14] = 9;	 HoraFinalCliente[14] = 10.5;		//2	(16)
+				NoCliente[15] = 17;		HoraInicioCliente[15] = 9;	 HoraFinalCliente[15] = 11;		//4	(17)
+				NoCliente[16] = 18;		HoraInicioCliente[16] = 10;	 HoraFinalCliente[16] = 12;		//3	(18)
+				NoCliente[17] = 19;		HoraInicioCliente[17] = 11;	 HoraFinalCliente[17] = 12.5;		//4	(19)
 
-				//NoCliente[18] = 20;		HoraInicioCliente[18] = 8;	 HoraFinalCliente[18] = 9;		//1	(20)
-				//NoCliente[19] = 21;		HoraInicioCliente[19] = 8; 	 HoraFinalCliente[19] = 9;		//4	(21)
-				//NoCliente[20] = 23;		HoraInicioCliente[20] = 8.5;	 HoraFinalCliente[20] = 9;		//2	(23)
-				//NoCliente[21] = 24;		HoraInicioCliente[21] = 9;	 HoraFinalCliente[21] = 10;		//3	(24)
-				//NoCliente[22] = 25;		HoraInicioCliente[22] = 9;	 HoraFinalCliente[22] = 10.5;	        //4	(25)
+				NoCliente[18] = 20;		HoraInicioCliente[18] = 8;	 HoraFinalCliente[18] = 9;		//1	(20)
+				NoCliente[19] = 21;		HoraInicioCliente[19] = 8; 	 HoraFinalCliente[19] = 9;		//4	(21)
+				NoCliente[20] = 23;		HoraInicioCliente[20] = 8.5;	 HoraFinalCliente[20] = 9;		//2	(23)
+				NoCliente[21] = 24;		HoraInicioCliente[21] = 9;	 HoraFinalCliente[21] = 10;		//3	(24)
+				NoCliente[22] = 25;		HoraInicioCliente[22] = 9;	 HoraFinalCliente[22] = 10.5;	        //4	(25)
 
 
-		NumeroCaminhoes = 10;
+		NumeroCaminhoes = 30;
 
 		//NumeroCaminhoes = 60;
 		CaminhoesPlanta.resize(NumeroPlantas + 1);
 		CaminhoesPlanta[1] = 10;
-		//CaminhoesPlanta[2] = 10;
-		//CaminhoesPlanta[3] = 10;
+		CaminhoesPlanta[2] = 10;
+		CaminhoesPlanta[3] = 10;
 
 		Velocidade 		= 30;
 
@@ -840,6 +840,14 @@ void DadosSaloman::CriarInstanciaSaloman(char* a){
 			DadosInstanciaSalomonCriada << "  NoCliente = " << NoCliente[c];
 			DadosInstanciaSalomonCriada << " \tDemanda em carretas ( " << NumeroCarretas[c] << " ) ";
 			DadosInstanciaSalomonCriada << "Horario [ "	<< HoraInicioCliente[c] << " - " << HoraFinalCliente[c] << " ]" << endl;
+		}
+		
+		DadosInstanciaSalomonCriada << endl << endl<< "Distancia das plantas para construcoes  em minutos" << endl << endl;
+		for (int p = 1; p <= NumeroPlantas; p++){
+			DadosInstanciaSalomonCriada <<  "   Planta = " <<  p << endl;
+			for( int c = 1; c <= NumeroClientes; c++){
+				DadosInstanciaSalomonCriada << c << '\t' << (sqrt( pow( Coordenadas[ NoPlanta[p] ][0] - Coordenadas[ NoCliente[c] ][0],2) + pow( Coordenadas[  NoPlanta[p] ][1] - Coordenadas[ NoCliente[c] ][1],2) ) / Velocidade)*60  << endl;
+			}
 		}
 
 	}else{
